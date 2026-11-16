@@ -1,0 +1,14 @@
+{
+  "name": "沃土有机质 HumusLab",
+  "short_name": "HumusLab",
+  "description": "土壤有机质与腐植酸 · Soil organic matter and humic substances · Bahan organik tanah dan asid humik",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#2a1c10",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
