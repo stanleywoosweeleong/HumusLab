@@ -57,7 +57,7 @@ section.on{display:flex}
 .arrow{text-align:center;font-weight:800;color:var(--soil);line-height:1}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
 @media(max-width:400px){.split{grid-template-columns:1fr}}
-.badge{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;border:2px solid currentColor;border-radius:4px;padding:.1rem .45rem;font-size:.9rem;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;border:2px solid currentColor;border-radius:4px;padding:.1rem .45rem;font-size:.9rem;max-width:100%}
 .badge i{display:inline-block;width:.55rem;height:.9rem;background:currentColor;opacity:.22}
 .badge i.f{opacity:1}
 .b-strong{color:var(--strong)} .b-mixed{color:var(--mixed)} .b-weak{color:var(--weak)}
@@ -71,21 +71,24 @@ details .in{padding:0 .9rem .9rem;display:flex;flex-direction:column;gap:.6rem}
 .src{font-size:.92rem;color:var(--soil);font-weight:700}
 .stripe{border-left:8px solid var(--line)}
 .stripe.s-strong{border-left-color:var(--strong)} .stripe.s-mixed{border-left-color:var(--mixed)} .stripe.s-weak{border-left-color:var(--weak)}
-.jars{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}
-.jar{background:var(--card);border:2px solid var(--soil);border-radius:4px;padding:.4rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;font-weight:800;text-align:center}
+.jars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+.jar{background:var(--card);border:2px solid var(--soil);border-radius:4px;padding:.4rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;font-weight:800;text-align:center;min-width:0;overflow-wrap:anywhere;font-family:inherit}
 .jar[aria-pressed="true"]{background:var(--tint);outline:3px solid var(--soil)}
 .jar svg{width:100%;max-width:5rem;height:auto}
-.cmp{display:grid;grid-template-columns:auto 1fr 1fr;border:2px solid var(--soil);border-radius:4px}
-.cmp>*{padding:.4rem .5rem;border-top:2px solid var(--line)}
+.cmp{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr) minmax(0,1fr);border:2px solid var(--soil);border-radius:4px}
+.cmp>*{padding:.4rem .5rem;border-top:2px solid var(--line);min-width:0;overflow-wrap:break-word}
 .cmp>.h{border-top:0;font-weight:800;color:#fff}
 .cmp>.k{font-weight:800;background:var(--tint)}
 .cmp>.hf{background:#8a5200}.cmp>.hh{background:var(--humus)}
+@media (max-width:480px){.cmp{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cmp>.k{grid-column:1/-1}.cmp>.h:first-child{display:none}}
 .pic{width:100%;height:auto;border:2px solid var(--line);border-radius:4px;background:#eaf2f6}
 .loss{display:flex;gap:.6rem;align-items:flex-start}
 .loss svg{flex:0 0 2.6rem;width:2.6rem;height:2.6rem}
 ol.steps{margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:.35rem}
 .tl{display:grid;grid-template-columns:auto 1fr;gap:.45rem .7rem;align-items:start}
-.tl b{background:var(--tint);border:2px solid var(--soil);border-radius:4px;padding:.15rem .45rem;white-space:nowrap}
+.tl>*{min-width:0;overflow-wrap:break-word}
+.tl b{background:var(--tint);border:2px solid var(--soil);border-radius:4px;padding:.15rem .45rem}
+@media (max-width:480px){.tl{grid-template-columns:1fr;gap:.2rem}.tl b{justify-self:start;margin-top:.45rem}}
 .sumi{display:flex;gap:.6rem;align-items:center}
 .sumi svg{flex:0 0 2.5rem;width:2.5rem;height:2.5rem}
 .strow{display:flex;gap:.6rem;align-items:flex-start}
@@ -597,8 +600,12 @@ function compostResult(){
 }
 let yrs=store.get("yrs")==="10"?"10":"5";
 function calcResult(){
- const a=parseFloat(String(area).replace(",","."));
- if(!(a>0))return '<div class="result"><p>'+T({zh:"填入面积，这里显示结果。",en:"Enter the area to see the result here.",bm:"Masukkan keluasan untuk melihat keputusan di sini."})+'</p></div>';
+ const raw=String(area).trim();
+ /* dot = decimal point; commas only as thousands separators (1,000 or 1,000.5) */
+ const okNum=/^(\d+|\d{1,3}(,\d{3})+)(\.\d+)?$|^\.\d+$/.test(raw);
+ const a=okNum?Number(raw.replace(/,/g,"")):NaN;
+ if(raw!==""&&!(Number.isFinite(a)&&a>0))return '<div class="result r-weak"><p>'+T({zh:"请只填数字，例如 5 或 2.5。",en:"Please enter a number only, for example 5 or 2.5.",bm:"Sila masukkan nombor sahaja, contohnya 5 atau 2.5."})+'</p></div>';
+ if(!(Number.isFinite(a)&&a>0))return '<div class="result"><p>'+T({zh:"填入面积，这里显示结果。",en:"Enter the area to see the result here.",bm:"Masukkan keluasan untuk melihat keputusan di sini."})+'</p></div>';
  const dm=Number(depth)/100, m2=a*4046.86, soil=m2*dm*1.3, om=soil*0.01, need=om*5, py=need/Number(yrs)/a;
  return '<div class="result"><div class="kv">'
   +'<span>'+T({zh:"要留在土里的有机质",en:"Organic matter that must stay in the soil",bm:"Bahan organik yang mesti kekal dalam tanah"})+'</span><b>'+fmt(om,1)+' t</b>'
@@ -818,7 +825,7 @@ function sources(){
 /* ================= shell ================= */
 const VIEWS={basics,humic,build,check};
 let tab="basics";
-function route(){const h=location.hash.replace("#","");tab=VIEWS[h]?h:"basics";paint()}
+function route(){const h=location.hash.replace("#","");tab=Object.prototype.hasOwnProperty.call(VIEWS,h)?h:"basics";paint()}
 function paint(){
  document.documentElement.lang=lang==="bm"?"ms":lang;
  $("ttl").textContent=T(S.title);
@@ -849,6 +856,9 @@ document.addEventListener("click",ev=>{
  else if(g.startsWith("dq.")){const k=g.slice(3);dq[k]=v;store.set(g,v)}
  else if(g.startsWith("ans.")){ans[g.slice(4)]=Number(v);store.set("ans",JSON.stringify(ans))}
  const y=window.scrollY;VIEWS[tab]();window.scrollTo(0,y);
+ /* the section was rebuilt: put keyboard focus back on the same option */
+ const again=[...document.querySelectorAll("[data-g]")].find(n=>n.dataset.g===g&&n.dataset.v===v);
+ if(again)again.focus({preventScroll:true});
 });
 document.addEventListener("input",ev=>{
  if(ev.target.id==="area"){area=ev.target.value;store.set("area",area);$("calc-out").innerHTML=calcResult()}
