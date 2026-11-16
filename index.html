@@ -86,6 +86,11 @@ details .in{padding:0 .9rem .9rem;display:flex;flex-direction:column;gap:.6rem}
 ol.steps{margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:.35rem}
 .tl{display:grid;grid-template-columns:auto 1fr;gap:.45rem .7rem;align-items:start}
 .tl b{background:var(--tint);border:2px solid var(--soil);border-radius:4px;padding:.15rem .45rem;white-space:nowrap}
+.sumi{display:flex;gap:.6rem;align-items:center}
+.sumi svg{flex:0 0 2.5rem;width:2.5rem;height:2.5rem}
+.strow{display:flex;gap:.6rem;align-items:flex-start}
+.strow svg{flex:0 0 2.6rem;width:2.6rem;height:2.6rem}
+.strow .bar{flex:1}
 .bars{display:flex;flex-direction:column;gap:.5rem}
 .bar{display:grid;grid-template-columns:1fr;gap:.15rem}
 .bar .t{height:1.1rem;background:var(--tint);border:2px solid var(--soil);border-radius:3px}
@@ -250,6 +255,82 @@ const IC={
 };
 const jar=(fill,sed)=>'<svg viewBox="0 0 60 70" aria-hidden="true"><path d="M14 6h32M18 6v16L8 58a6 6 0 0 0 6 8h32a6 6 0 0 0 6-8L42 22V6" fill="#fffdf7" stroke="#2a1c10" stroke-width="3"/><path d="M14.5 36h31l5.5 21a4 4 0 0 1-4 5H13a4 4 0 0 1-4-5z" fill="'+fill+'"/>'+(sed?'<path d="M10.5 54h39l1.5 4a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4z" fill="'+sed+'"/>':'')+'</svg>';
 
+/* ================= ILLUSTRATIONS ================= */
+const svgw=(w,h,b,c)=>'<svg'+(c?' class="'+c+'"':'')+' viewBox="0 0 '+w+' '+h+'" aria-hidden="true">'+b+'</svg>';
+const ic=b=>svgw(40,40,b);
+const pic=(h,b)=>svgw(320,h,b,"pic");
+const dots=(p,r,f)=>p.map(q=>'<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+r+'" fill="'+f+'"/>').join("");
+const soilI='<rect x="3" y="28" width="34" height="9" fill="#6b4524"/>';
+const dropG=(x,y,k,f)=>'<path d="M'+x+' '+y+'c'+4*k+' '+6*k+' '+6*k+' '+8*k+' '+6*k+' '+11*k+'a'+6*k+' '+6*k+' 0 0 1 '+(-12*k)+' 0c0 '+(-3*k)+' '+2*k+' '+(-5*k)+' '+6*k+' '+(-11*k)+'z" fill="'+(f||"#5d8fb0")+'"/>';
+const treeG=(x,b,k,f)=>'<rect x="'+(x-3*k)+'" y="'+(b-26*k)+'" width="'+6*k+'" height="'+26*k+'" fill="#4a2f17"/><ellipse cx="'+x+'" cy="'+(b-34*k)+'" rx="'+22*k+'" ry="'+15*k+'" fill="'+(f||"#1f5f33")+'"/>';
+const durianG=(cx,cy,r,f)=>{f=f||"#7a8f3a";let o='<path d="M'+cx+' '+(cy-r)+'v'+(-r*.55)+'" stroke="#4a2f17" stroke-width="'+(r*.24).toFixed(1)+'"/>';
+ for(let k=0;k<12;k++){const a=k*Math.PI/6,P=(m,d)=>(cx+Math.cos(a+d)*r*m).toFixed(1)+' '+(cy+Math.sin(a+d)*r*m*1.08).toFixed(1);o+='<path d="M'+P(.8,-.24)+'L'+P(1.3,0)+'L'+P(.8,.24)+'z" fill="'+f+'"/>'}
+ return o+'<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(r*.92).toFixed(1)+'" ry="'+r+'" fill="'+f+'"/>'+dots([[cx-r*.35,cy-r*.3],[cx+r*.3,cy-r*.4],[cx,cy+r*.15],[cx-r*.4,cy+r*.45],[cx+r*.4,cy+r*.4]],(r*.09).toFixed(1),"#2a1c10")};
+const flowerG=(x,y,k)=>dots([[x,y-7*k],[x+7*k,y-2*k],[x+4*k,y+6*k],[x-4*k,y+6*k],[x-7*k,y-2*k]],5*k,"#f4ecd8").replace(/\/>/g,' stroke="#8a7a66" stroke-width="1.2"/>')+'<circle cx="'+x+'" cy="'+y+'" r="'+3.5*k+'" fill="#f2c14e"/>';
+const FXI={
+ crumb:ic(soilI+dots([[10,20],[19,16],[28,20],[14,26],[24,26]],4.6,"#8a5200")),
+ water:ic(soilI+dropG(20,5,1.3)),
+ crust:ic(soilI+'<path d="M3 28h34" stroke="#1f5f33" stroke-width="5"/><path d="M10 5v11M20 3v11M30 5v11" stroke="#5d8fb0" stroke-width="3" stroke-linecap="round"/>'),
+ cec:ic('<circle cx="20" cy="20" r="11" fill="#2a1c10"/>'+dots([[20,5],[33,12.5],[33,27.5],[20,35],[7,27.5],[7,12.5]],3.4,"#f2c14e")),
+ chel:ic('<path d="M8 31c-5-12 2-23 12-23s17 11 12 23" fill="none" stroke="#2a1c10" stroke-width="4.5" stroke-linecap="round"/><circle cx="20" cy="23" r="6.5" fill="#c2410c"/>'),
+ urea:ic(dots([[9,32],[20,34],[31,32],[14.5,27],[25.5,27]],3.6,"#b9ab94")+'<path d="M13 20c0-5 4-5 4-10M25 20c0-5 4-5 4-10" fill="none" stroke="#8a7a66" stroke-width="3" stroke-linecap="round"/><path d="M6 5l28 17" stroke="#1f5f33" stroke-width="3.5" stroke-linecap="round"/>'),
+ phos:ic('<circle cx="12" cy="22" r="9" fill="#b9ab94"/><circle cx="12" cy="22" r="3.5" fill="#8a5200"/><path d="M23 22h11M29 16l6 6-6 6" fill="none" stroke="#1f5f33" stroke-width="3.2"/>'),
+ root:ic('<path d="M3 13h34" stroke="#6b4524" stroke-width="3"/><path d="M20 7v12M20 19c0 8-8 8-11 16M20 19c0 8 8 8 11 16M20 19v18M20 27c-3 2-4 5-5 8M20 27c3 2 4 5 5 8" fill="none" stroke="#4a2f17" stroke-width="2.6" stroke-linecap="round"/><path d="M20 9c-5 0-7-2-7-6 5 0 7 2 7 6zM20 9c5 0 7-2 7-6-5 0-7 2-7 6z" fill="#1f5f33"/>'),
+ shoot:ic(soilI+'<path d="M20 28V11" stroke="#1f5f33" stroke-width="3.2"/><path d="M20 20c-8 0-11-4-11-9 7 0 11 3 11 9zM20 14c8 0 11-4 11-9-7 0-11 3-11 9z" fill="#1f5f33"/>'),
+ harm:ic(soilI+'<path d="M17 28c0-10 3-13 9-17" fill="none" stroke="#8a5200" stroke-width="3.2"/><path d="M27 10c3 4 2 9-3 11-2-4-1-9 3-11z" fill="#8a5200"/><ellipse cx="14" cy="29" rx="9" ry="3" fill="#2a1c10"/>'),
+ durian:ic(durianG(20,23,10.5)),
+ sweet:ic(durianG(16,25,8.5)+'<path d="M31 3l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z" fill="#f2c14e"/>')
+};
+const STI={
+ veg:ic('<path d="M20 36V14" stroke="#4a2f17" stroke-width="3"/><path d="M20 24c-9 0-13-5-13-11 8 0 13 4 13 11zM20 16c9 0 13-5 13-11-8 0-13 4-13 11z" fill="#1f5f33"/>'),
+ pre:ic('<circle cx="13" cy="13" r="7.5" fill="#f2c14e"/>'+dropG(27,18,1.1)+'<path d="M18 36l17-21" stroke="#9a2f1f" stroke-width="3.5" stroke-linecap="round"/>'),
+ bloom:ic(flowerG(20,20,1.5)),
+ set:ic(durianG(20,24,6,"#9bb04a")+'<path d="M20 3v9" stroke="#4a2f17" stroke-width="2.5"/>'),
+ ripe:ic(durianG(20,23,10.5)),
+ post:ic(treeG(20,37,.72))
+};
+const CQI={
+ sm:ic('<path d="M4 34c2-10 8-14 16-14s14 4 16 14z" fill="#4a2f17"/><path d="M13 15c0-4 4-4 4-8M24 15c0-4 4-4 4-8" fill="none" stroke="#8a7a66" stroke-width="3" stroke-linecap="round"/>'),
+ ht:ic('<path d="M4 36c2-12 8-17 16-17s14 5 16 17z" fill="#4a2f17"/><rect x="18" y="4" width="4" height="22" rx="2" fill="#fffdf7" stroke="#2a1c10" stroke-width="1.5"/><rect x="19" y="13" width="2" height="12" fill="#c2410c"/><circle cx="20" cy="27" r="4" fill="#c2410c"/>'),
+ bg:ic('<path d="M10 14h20l4 20a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z" fill="#b9ab94" stroke="#2a1c10" stroke-width="2"/><path d="M14 14c0-6 12-6 12 0" fill="none" stroke="#2a1c10" stroke-width="2.5"/><path d="M12 27h16v7H12z" fill="#4a2f17"/>')
+};
+const microbes=(x0,x1,y0,y1,n,f,r)=>{let o=[];for(let k=0;k<n;k++){o.push([Math.round(x0+((k*73+17)%100)/100*(x1-x0)),Math.round(y0+((k*41+29)%100)/100*(y1-y0))])}return dots(o,r||2.2,f)};
+const ART={
+ hero:pic(130,'<rect width="320" height="130" fill="#eaf2f6"/><circle cx="42" cy="26" r="13" fill="#f2c14e"/><rect y="72" width="320" height="22" fill="#2a1c10"/><rect y="94" width="320" height="36" fill="#6b4524"/>'+treeG(232,72,1.55)
+  +'<path d="M232 72c0 14-22 14-34 30M232 72c0 14 22 14 34 30M232 72v40M232 88c-8 4-12 10-14 18M232 88c8 4 12 10 14 18" fill="none" stroke="#e9dfc8" stroke-width="2.4" stroke-linecap="round"/>'
+  +'<path d="M20 72q6-9 12 0t12 0 12 0 12 0 12 0 12 0 12 0 12 0 12 0 12 0 12 0z" fill="#8a5200"/><path d="M262 72q6-9 12 0t12 0 12 0 12 0z" fill="#8a5200"/>'
+  +dots([[34,66],[70,65],[118,66],[150,65],[282,66]],3.2,"#1f5f33")
+  +'<path d="M52 84c8-9 14 6 22-3s14 5 22-4" fill="none" stroke="#d98c7a" stroke-width="4.5" stroke-linecap="round"/>'+microbes(120,196,77,90,10,"#f2c14e")+microbes(262,312,77,90,5,"#f2c14e")),
+ cec:pic(118,'<rect width="320" height="118" fill="#eaf2f6"/><path d="M160 6v106" stroke="#8a7a66" stroke-width="2" stroke-dasharray="5 4"/>'
+  +'<rect x="22" y="42" width="116" height="52" rx="4" fill="#d6c7ac"/>'+dots([[50,60],[104,76]],5,"#f2c14e")+'<path d="M40 8v20M80 8v20M120 8v20" stroke="#5d8fb0" stroke-width="3.5" stroke-linecap="round"/>'+dots([[62,104],[96,108],[124,103]],5,"#f2c14e")+'<path d="M62 86v10M96 88v12M124 86v9" stroke="#f2c14e" stroke-width="2" stroke-dasharray="2 3"/>'
+  +'<rect x="182" y="42" width="116" height="52" rx="4" fill="#2a1c10"/>'+dots([[200,54],[224,70],[250,56],[276,72],[206,82],[240,84],[268,52],[284,86],[222,52]],5,"#f2c14e")+'<path d="M200 8v20M240 8v20M280 8v20" stroke="#5d8fb0" stroke-width="3.5" stroke-linecap="round"/>'),
+ both:pic(110,'<rect width="320" height="110" fill="#eaf2f6"/><rect y="88" width="320" height="22" fill="#6b4524"/>'
+  +'<path d="M22 44h44l6 44H16z" fill="#4a2f17"/><path d="M44 74c-8 0-11-4-11-9 7 0 11 3 11 9zM44 68c8 0 11-4 11-9-7 0-11 3-11 9z" fill="#7fc98f"/>'
+  +'<path d="M98 44h44l6 44H92z" fill="#d6c7ac" stroke="#8a7a66" stroke-width="2"/>'+dots([[110,60],[122,72],[132,58],[114,78],[130,80]],3.4,"#5d8fb0")
+  +'<path d="M160 60h34M186 50l10 10-10 10" fill="none" stroke="#2a1c10" stroke-width="4"/>'+treeG(256,88,1.5)+durianG(240,52,6)+durianG(270,58,6)+durianG(256,40,5)),
+ fvh:pic(120,'<rect width="320" height="120" fill="#eaf2f6"/><rect x="196" width="124" height="120" fill="#d9ecd9"/><path d="M196 0v22M196 36v22M196 72v22M196 108v12" stroke="#1f5f33" stroke-width="9"/>'
+  +dots([[40,28],[80,64],[120,96],[60,100],[150,30]],5,"#d9a520")+dots([[236,29],[262,65],[226,101],[290,40]],5,"#d9a520")
+  +'<path d="M168 29h46M168 65h46M168 101h46" stroke="#d9a520" stroke-width="2" stroke-dasharray="3 4"/>'
+  +'<ellipse cx="150" cy="60" rx="30" ry="20" fill="#4a2f17"/><ellipse cx="100" cy="30" rx="26" ry="16" fill="#4a2f17"/><ellipse cx="160" cy="98" rx="24" ry="15" fill="#4a2f17"/>'),
+ glass:pic(110,'<rect width="320" height="110" fill="#eaf2f6"/>'
+  +[60,200].map((x,k)=>'<path d="M'+x+' 14v78a6 6 0 0 0 6 6h48a6 6 0 0 0 6-6V14" fill="#c9a877" stroke="#2a1c10" stroke-width="3"/><path d="M'+(x+1.5)+' '+(k?64:88)+'h57v'+(k?28:4)+'a4 4 0 0 1-4 4h-49a4 4 0 0 1-4-4z" fill="#2a1c10"/>').join("")
+  +'<path d="M8 50l10 10 18-22" fill="none" stroke="#1f5f33" stroke-width="6"/><path d="M276 40l22 22M298 40l-22 22" stroke="#9a2f1f" stroke-width="6"/>'),
+ ribbon:pic(110,'<rect width="320" height="110" fill="#eaf2f6"/><rect y="88" width="320" height="22" fill="#6b4524"/>'
+  +[50,125,200,275].map((x,k)=>treeG(x,88,1.1)+(k===2?'<rect x="'+(x-5)+'" y="66" width="10" height="7" fill="#c2410c"/><path d="M'+(x+5)+' 70l12 4-9 5z" fill="#c2410c"/>':dots([[x-14,86],[x-6,84],[x+7,85],[x+15,86]],3,"#2a1c10"))).join("")),
+ phyto:pic(110,'<rect width="320" height="110" fill="#6b4524"/><path d="M0 0h320v14H0z" fill="#2a1c10"/><path d="M160 0c0 40-10 60-10 110M158 40c-20 10-34 24-44 46M156 60c22 8 40 22 52 44" fill="none" stroke="#e9dfc8" stroke-width="5" stroke-linecap="round"/>'
+  +microbes(70,250,22,100,34,"#7fc98f",3)+'<g transform="translate(288,78)"><circle r="9" fill="#c2410c"/><path d="M-13 0h26M0-13v26M-9-9l18 18M9-9l-18 18" stroke="#c2410c" stroke-width="3"/></g>'),
+ trial:pic(110,'<rect width="320" height="110" fill="#eaf2f6"/>'+durianG(78,62,32)+'<ellipse cx="74" cy="66" rx="13" ry="10" fill="#4a2f17"/><ellipse cx="94" cy="48" rx="7" ry="5" fill="#4a2f17"/><path d="M138 58h40M168 46l12 12-12 12" fill="none" stroke="#2a1c10" stroke-width="5"/>'+durianG(242,62,32)),
+ al:pic(118,'<rect width="320" height="118" fill="#6b4524"/><path d="M160 4v110" stroke="#e9dfc8" stroke-width="2" stroke-dasharray="5 4"/>'
+  +'<path d="M80 0v38M80 38c-6 4-9 8-10 12M80 38c6 4 9 8 10 12" fill="none" stroke="#e9dfc8" stroke-width="6" stroke-linecap="round"/>'+dots([[44,58],[70,70],[96,62],[118,74],[58,86],[100,90],[80,60]],5,"#c2410c")
+  +'<path d="M240 0v70M240 30c-16 8-24 22-28 40M240 30c16 8 24 22 28 40M240 70c-6 10-8 20-9 34M240 70c6 10 8 20 9 34" fill="none" stroke="#e9dfc8" stroke-width="6" stroke-linecap="round"/>'
+  +[[188,96],[296,92],[190,36],[298,40]].map(q=>'<ellipse cx="'+q[0]+'" cy="'+q[1]+'" rx="14" ry="10" fill="#2a1c10"/>'+dots([[q[0]-5,q[1]-1],[q[0]+5,q[1]+2]],4,"#c2410c")).join("")),
+ dry:pic(92,'<rect width="320" height="92" fill="#eaf2f6"/>'+[26,60,94].map(x=>'<circle cx="'+x+'" cy="32" r="12" fill="#f2c14e"/>').join("")
+  +'<text x="60" y="78" text-anchor="middle" font-size="24" font-weight="800" fill="#2a1c10" font-family="sans-serif">15</text>'
+  +'<path d="M126 34h74M188 22l14 12-14 12" fill="none" stroke="#2a1c10" stroke-width="4"/><text x="162" y="78" text-anchor="middle" font-size="24" font-weight="800" fill="#2a1c10" font-family="sans-serif">50</text>'
+  +flowerG(264,40,2.6))
+};
+const FXKEY={"团粒结构更稳":"crumb","保水":"water","少结皮、少冲刷":"crust","抓住养分，减少淋失":"cec","螯合铁锌锰铜":"chel","减少尿素的氮损失":"urea","让磷更有效":"phos","土壤生物的食物":"life","根长得更多":"root","地上部长得更好":"shoot","用多了反而有害":"harm","榴莲上的试验":"durian","糖分、风味、耐储":"sweet"};
+
 /* ================= BASICS ================= */
 let view=store.get("view")==="lecture"?"lecture":"today";
 let air=store.get("air")==="an"?"an":"ae";
@@ -291,20 +372,20 @@ function basics(){
   bm:"<p><b>Bertakung, tiada udara:</b> pengoksidaan terhenti, nutrien ringkas itu tidak terbentuk, dan CO₂ jauh lebih sedikit. Banyak selulosa, lignin dan protein kekal seperti asal.</p><p>Untuk dusun: dalam tanah bertakung, bahan organik tersimpan tanpa membebaskan nutrien. Baiki saliran dahulu sebelum menambah lagi.</p>"});
  $("v-basics").innerHTML=
  '<h2>'+T({zh:"土壤有机质是什么",en:"What soil organic matter is",bm:"Apa itu bahan organik tanah"})+'</h2>'
- +'<p class="lead">'+T({zh:"土壤里所有来自动植物和微生物的有机物，活的不算。它不断有新的进来，也不断被分解掉。",en:"Everything in the soil that came from plants, animals and microbes, not counting what is still alive. New material keeps arriving and old material keeps being broken down.",bm:"Semua bahan dalam tanah yang berasal daripada tumbuhan, haiwan dan mikrob, tidak termasuk yang masih hidup. Bahan baharu sentiasa masuk dan bahan lama sentiasa terurai."})+'</p>'
+ +'<p class="lead">'+T({zh:"土壤里所有来自动植物和微生物的有机物，活的不算。它不断有新的进来，也不断被分解掉。",en:"Everything in the soil that came from plants, animals and microbes, not counting what is still alive. New material keeps arriving and old material keeps being broken down.",bm:"Semua bahan dalam tanah yang berasal daripada tumbuhan, haiwan dan mikrob, tidak termasuk yang masih hidup. Bahan baharu sentiasa masuk dan bahan lama sentiasa terurai."})+'</p>'+ART.hero
  +'<div class="card">'+flowToday+todayTxt+src(["LK","LI","LA","OL"])+'</div>'
  +'<details><summary><span class="row"><span>'+T({zh:"课堂笔记里的经典模型",en:"The classical model in the lecture notes",bm:"Model klasik dalam nota kuliah"})+'</span></span></summary><div class="in">'+flowLecture+lecTxt+src(["L1"])+'</div></details>'
  +'<div class="card"><h3>'+T({zh:"分解需要空气",en:"Breakdown needs air",bm:"Pereputan perlukan udara"})+'</h3><div class="chips">'
  +chip("air","ae",T({zh:"通气的土",en:"Aerated soil",bm:"Tanah berudara"}),air==="ae")
  +chip("air","an",T({zh:"积水的土",en:"Waterlogged soil",bm:"Tanah bertakung"}),air==="an")
  +'</div><div class="box">'+(air==="ae"?IC.gas:IC.water)+'<div>'+(air==="ae"?ae:an)+'</div></div>'+src(["L1"])+'</div>'
- +'<div class="card"><h3>'+T({zh:"为什么在马来西亚特别重要",en:"Why it matters more in Malaysia",bm:"Mengapa ia lebih penting di Malaysia"})+'</h3>'
+ +'<div class="card"><h3>'+T({zh:"为什么在马来西亚特别重要",en:"Why it matters more in Malaysia",bm:"Mengapa ia lebih penting di Malaysia"})+'</h3>'+ART.cec
  +T({
   zh:"<p>马来西亚约 72% 的土地是高度风化的老成土和氧化土，粘粒以高岭石为主，本身抓不住多少养分。测过的几个土系，阳离子交换量只有 7.5 到 12 cmolc/kg。</p><p>课堂笔记给出的有机质交换量是每 100 克 100 到 150 毫当量，大约高出十倍。在这种土里，肥料留不留得住，很大程度上靠有机质。</p>",
   en:"<p>About 72% of Malaysia is highly weathered Ultisols and Oxisols. Their clay is mostly kaolinite, which holds few nutrients on its own. Measured soil series had a cation exchange capacity of only 7.5 to 12 cmolc/kg.</p><p>The lecture notes put the exchange capacity of organic matter at 100 to 150 meq per 100 g, roughly ten times higher. In these soils, whether fertiliser stays or washes away depends heavily on organic matter.</p>",
   bm:"<p>Kira-kira 72% Malaysia ialah tanah Ultisol dan Oksisol yang terluluhawa lanjut. Liatnya kebanyakannya kaolinit, yang sendiri kurang memegang nutrien. Siri tanah yang diukur mempunyai kapasiti pertukaran kation hanya 7.5 hingga 12 cmolc/kg.</p><p>Nota kuliah meletakkan kapasiti pertukaran bahan organik pada 100 hingga 150 meq setiap 100 g, kira-kira sepuluh kali ganda. Dalam tanah begini, sama ada baja kekal atau larut lesap banyak bergantung pada bahan organik.</p>"})
  +src(["SH","L1"])+'</div>'
- +'<div class="card"><h3>'+T({zh:"有机肥和化肥一起用",en:"Organic and mineral fertiliser together",bm:"Baja organik dan baja kimia bersama"})+'</h3>'
+ +'<div class="card"><h3>'+T({zh:"有机肥和化肥一起用",en:"Organic and mineral fertiliser together",bm:"Baja organik dan baja kimia bersama"})+'</h3>'+ART.both
  +T({
   zh:"<p>课堂笔记的结论：单用有机质，改善的是土壤物理和生物性状；单用化肥，增加的是速效养分；两者合用，土壤既有养分，又留得住、放得出。</p>",
   en:"<p>The lecture notes conclude: organic matter alone improves the soil's physical and biological condition; mineral fertiliser alone adds available nutrients; the two together give a soil that has nutrients, holds them and releases them.</p>",
@@ -383,7 +464,7 @@ function effects(){
  +'<p class="lead">'+T({zh:"课堂笔记和产品图表里的每一项说法，对照近年的研究，分成三档。",en:"Each claim in the lecture notes and the product chart, checked against recent research and sorted into three grades.",bm:"Setiap dakwaan dalam nota kuliah dan carta produk, disemak dengan kajian terkini dan dibahagi kepada tiga gred."})+'</p>'
  +'<div class="chips">'+["strong","mixed","weak"].map(badge).join("")+'</div>'
  +'<div class="chips">'+GROUPS.map(g=>chip("fg",g.id,T(g.n),fg===g.id)).join("")+'</div>'
- +list.map(x=>'<details class="stripe s-'+x.e+'"><summary><span class="row"><span>'+esc(T(x.t))+'</span></span>'+badge(x.e)+'</summary><div class="in"><p>'+esc(T(x.b))+'</p>'+src(x.r)+'</div></details>').join("");
+ +list.map(x=>'<details class="stripe s-'+x.e+'"><summary><span class="row"><span class="sumi">'+(FXKEY[x.t.zh]==="life"?IC.bug:(FXI[FXKEY[x.t.zh]]||""))+'<span>'+esc(T(x.t))+'</span></span></span>'+badge(x.e)+'</summary><div class="in"><p>'+esc(T(x.b))+'</p>'+src(x.r)+'</div></details>').join("");
 }
 
 /* ================= HUMIC ================= */
@@ -434,12 +515,13 @@ function hometests(){
  +'<p class="lab">'+T({zh:"可以做的三件事",en:"Three things you can do",bm:"Tiga perkara yang boleh dibuat"})+'</p><ul>'
  +'<li>'+T({zh:"看标签上的含量是用什么方法测的；方法不同，数字不能比。",en:"Check which test method is behind the percentage on the label. Different methods give numbers that cannot be compared.",bm:"Semak kaedah ujian di sebalik peratusan pada label. Kaedah berbeza memberi angka yang tidak boleh dibandingkan."})+'</li>'
  +'<li>'+T({zh:"对一对标签上的“水溶性”。腐植酸钾的规格表通常写明水溶性百分比，例如 NTS 的可溶腐植酸颗粒标明溶解度 85%，并说明有 10% 到 15% 不溶。一勺产品放进一杯清水搅匀静置，如果杯底的渣明显比标签说的多，就和规格不符。这只能核对水溶性，不能说明腐植酸含量。",en:"Compare against the water solubility on the label. Potassium humate specification sheets normally state a water-solubility percentage. For example, NTS Soluble Humate Granules lists solubility of 85% and notes that 10 to 15% is insoluble. Stir a spoonful into a glass of clear water and let it stand. Clearly more sediment than the label implies means it does not match its specification. This checks solubility only, not humic acid content.",bm:"Bandingkan dengan keterlarutan air pada label. Helaian spesifikasi kalium humat biasanya menyatakan peratusan keterlarutan air. Contohnya, NTS Soluble Humate Granules menyenaraikan keterlarutan 85% dan menyatakan 10 hingga 15% tidak larut. Kacau sesudu ke dalam segelas air jernih dan biarkan. Mendapan yang jelas lebih banyak daripada yang dinyatakan label bermakna ia tidak menepati spesifikasinya. Ini hanya menyemak keterlarutan, bukan kandungan asid humik."})+'</li>'
- +'<li>'+T({zh:"留几棵树不施、绑上布条，下次抽梢时比一眼。只有这个能告诉你它在你的园里有没有用。",en:"Leave a few trees untreated with a ribbon and compare once at the next flush. Only this tells you whether it works in your orchard.",bm:"Biarkan beberapa pokok tanpa rawatan dengan reben dan bandingkan sekali pada pucuk baharu seterusnya. Hanya ini yang memberitahu sama ada ia berkesan di dusun anda."})+'</li></ul>'+src(["NS"])
+ +'<li>'+T({zh:"留几棵树不施、绑上布条，下次抽梢时比一眼。只有这个能告诉你它在你的园里有没有用。",en:"Leave a few trees untreated with a ribbon and compare once at the next flush. Only this tells you whether it works in your orchard.",bm:"Biarkan beberapa pokok tanpa rawatan dengan reben dan bandingkan sekali pada pucuk baharu seterusnya. Hanya ini yang memberitahu sama ada ia berkesan di dusun anda."})+'</li></ul>'+ART.glass+ART.ribbon+src(["NS"])
  +'<p>'+T({zh:"目前的商品腐植物质大多来自煤和泥炭（例如风化褐煤），属于不可再生资源；堆肥和蚯蚓粪是可再生的来源。",en:"Most commercial humic material today comes from coal and peat, such as leonardite, which are non-renewable. Compost and vermicompost are renewable sources.",bm:"Kebanyakan bahan humik komersial hari ini berasal daripada arang batu dan gambut, seperti leonardit, yang tidak boleh diperbaharui. Kompos dan vermikompos ialah sumber boleh diperbaharui."})+'</p>'+src(["C15"])+'</div>';
 }
 function fulvic(){
  return '<div class="card"><h3>'+T({zh:"黄腐酸",en:"Fulvic acid",bm:"Asid fulvik"})+'</h3>'
  +'<p>'+T({zh:"黄腐酸是腐植物质里最小、最活泼的一部分。和腐植酸相比：",en:"Fulvic acid is the smallest and most active part of humic material. Compared with humic acid:",bm:"Asid fulvik ialah bahagian paling kecil dan paling aktif dalam bahan humik. Berbanding asid humik:"})+'</p>'
+ +ART.fvh
  +'<div class="cmp"><span class="h hh"></span><span class="h hf">'+T(FRAC.fa.n)+'</span><span class="h hh">'+T(FRAC.ha.n)+'</span>'
  +CMP.map(c=>'<span class="k">'+esc(T(c.k))+'</span><span>'+esc(T(c.f))+'</span><span>'+esc(T(c.h))+'</span>').join("")+'</div>'
  +src(["OL","LM","NA","L3"])
@@ -566,14 +648,14 @@ function whenCard(){
   const f=((a.lo+a.hi)/2)/22.5, r1=x=>+(x*f).toFixed(1);
   const full=(a.lo===a.hi?a.lo:a.lo+"–"+a.hi)+kg;
   const rows=[
-   [{zh:"营养生长期",en:"Vegetative growth",bm:"Pertumbuhan vegetatif"},100,full,{zh:"每三个月轮换的第一个月施一次",en:"Once in the first month of each three-month rotation",bm:"Sekali pada bulan pertama setiap pusingan tiga bulan"}],
-   [{zh:"催花期",en:"Before flowering",bm:"Sebelum berbunga"},22,r1(5)+kg,{zh:"减量，只施一次；这个阶段停止灌水",en:"Reduced, once only. Irrigation stops in this stage",bm:"Dikurangkan, sekali sahaja. Pengairan dihentikan pada peringkat ini"}],
-   [{zh:"开花期",en:"Full bloom",bm:"Bunga kembang"},0,T({zh:"不施",en:"None",bm:"Tiada"}),{zh:"花开时不施堆肥和粒肥",en:"No compost or granules while flowers are open",bm:"Tiada kompos atau baja butir semasa bunga kembang"}],
-   [{zh:"坐果初期",en:"Fruit set",bm:"Pembentukan buah"},100,r1(25)+kg,{zh:"坐果后施一次",en:"Once at fruit set",bm:"Sekali semasa pembentukan buah"}],
-   [{zh:"成熟期",en:"Ripening",bm:"Kematangan"},0,T({zh:"不施",en:"None",bm:"Tiada"}),{zh:"采收前三周停止所有粒状肥料",en:"All granular fertiliser stops three weeks before harvest",bm:"Semua baja butir dihentikan tiga minggu sebelum tuai"}],
-   [{zh:"采收后",en:"After harvest",bm:"Selepas tuai"},100,full,{zh:"采收后立即施",en:"Immediately after harvest",bm:"Sejurus selepas tuai"}]
+   ["veg",{zh:"营养生长期",en:"Vegetative growth",bm:"Pertumbuhan vegetatif"},100,full,{zh:"每三个月轮换的第一个月施一次",en:"Once in the first month of each three-month rotation",bm:"Sekali pada bulan pertama setiap pusingan tiga bulan"}],
+   ["pre",{zh:"催花期",en:"Before flowering",bm:"Sebelum berbunga"},22,r1(5)+kg,{zh:"减量，只施一次；这个阶段停止灌水",en:"Reduced, once only. Irrigation stops in this stage",bm:"Dikurangkan, sekali sahaja. Pengairan dihentikan pada peringkat ini"}],
+   ["bloom",{zh:"开花期",en:"Full bloom",bm:"Bunga kembang"},0,T({zh:"不施",en:"None",bm:"Tiada"}),{zh:"花开时不施堆肥和粒肥",en:"No compost or granules while flowers are open",bm:"Tiada kompos atau baja butir semasa bunga kembang"}],
+   ["set",{zh:"坐果初期",en:"Fruit set",bm:"Pembentukan buah"},100,r1(25)+kg,{zh:"坐果后施一次",en:"Once at fruit set",bm:"Sekali semasa pembentukan buah"}],
+   ["ripe",{zh:"成熟期",en:"Ripening",bm:"Kematangan"},0,T({zh:"不施",en:"None",bm:"Tiada"}),{zh:"采收前三周停止所有粒状肥料",en:"All granular fertiliser stops three weeks before harvest",bm:"Semua baja butir dihentikan tiga minggu sebelum tuai"}],
+   ["post",{zh:"采收后",en:"After harvest",bm:"Selepas tuai"},100,full,{zh:"采收后立即施",en:"Immediately after harvest",bm:"Sejurus selepas tuai"}]
   ];
-  out='<div class="result">'+rows.map(r=>'<div class="bar"><b>'+esc(T(r[0]))+(lang==="zh"?'：':': ')+esc(r[2])+'</b><div class="t"><span style="width:'+r[1]+'%"></span></div><span>'+esc(T(r[3]))+'</span></div>').join("")
+  out='<div class="result">'+rows.map(r=>'<div class="strow">'+STI[r[0]]+'<div class="bar"><b>'+esc(T(r[1]))+(lang==="zh"?'：':': ')+esc(r[3])+'</b><div class="t"><span style="width:'+r[2]+'%"></span></div><span>'+esc(T(r[4]))+'</span></div></div>').join("")
    +(a.bear?'':'<p>'+T({zh:"未满 5 年的树还没到结果期：只按“营养生长期”施用，不要催花。",en:"Trees under 5 years are not yet bearing: follow only the vegetative growth line, and do not induce flowering.",bm:"Pokok bawah 5 tahun belum berbuah: ikut baris pertumbuhan vegetatif sahaja, dan jangan paksa pembungaan."})+'</p>')
    +src(["FP"])+'</div>';
  }
@@ -584,12 +666,12 @@ function whenCard(){
  +'<p>'+T({zh:"这个节奏和研究对得上：催花前减量、花期不施，配合榴莲催花所需的干旱；坐果后追施，和越南榴莲试验的做法一致。",en:"This rhythm fits the research: less before flowering and none during bloom goes with the dry spell durian needs to flower, and applying after fruit set matches the Vietnam durian trial.",bm:"Rentak ini sepadan dengan kajian: kurang sebelum berbunga dan tiada semasa bunga kembang selari dengan tempoh kering yang durian perlukan untuk berbunga, dan menabur selepas pembentukan buah sepadan dengan ujian durian di Vietnam."})+'</p>'+src(["EG","DG"])+'</div>';
 }
 function moreBuild(){
- return '<div class="card"><h3>'+T({zh:"有机质和榴莲疫霉病",en:"Organic matter and durian Phytophthora",bm:"Bahan organik dan Phytophthora durian"})+'</h3>'
+ return '<div class="card"><h3>'+T({zh:"有机质和榴莲疫霉病",en:"Organic matter and durian Phytophthora",bm:"Bahan organik dan Phytophthora durian"})+'</h3>'+ART.phyto
  +T({zh:"<p>疫霉病是榴莲最严重的病害。澳大利亚国际农业研究中心（ACIAR）的榴莲综合防治建议里，果园建成之后的管理重点之一，就是用有机覆盖物改善和保持土壤健康，提高土壤有机质和微生物活性。</p><p>道理是：有机物料让土壤里的微生物活跃起来，它们会压制疫霉菌的存活和活动。但物料的性质不同，效果也不同，所以要用腐熟的堆肥和园里的落叶、草屑，覆盖物离开树干，并先把排水做好。</p><p>它是预防的一部分，不能代替对病树的处理。树干已经出现病斑，请看《榴莲树干病辨症》软件。</p>",
      en:"<p>Phytophthora is the most serious disease of durian. In the integrated management recommendations from the Australian Centre for International Agricultural Research (ACIAR), one priority after an orchard is established is to improve and maintain soil health with organic mulches, building up soil organic matter and microbial activity.</p><p>The reason: organic material makes soil microbes active, and they suppress the survival and activity of Phytophthora. The effect depends on the nature of the material, so use mature compost and the orchard's own leaves and cut grass, keep mulch off the trunk, and get drainage right first.</p><p>This is part of prevention. It does not replace treating a diseased tree. If the trunk already shows lesions, see the Durian Trunk Disease Triage app.</p>",
      bm:"<p>Phytophthora ialah penyakit durian yang paling serius. Dalam saranan pengurusan bersepadu daripada Australian Centre for International Agricultural Research (ACIAR), satu keutamaan selepas dusun ditubuhkan ialah memperbaiki dan mengekalkan kesihatan tanah dengan sungkupan organik, membina bahan organik tanah dan aktiviti mikrob.</p><p>Sebabnya: bahan organik mengaktifkan mikrob tanah, dan mereka menekan kemandirian serta aktiviti Phytophthora. Kesannya bergantung pada sifat bahan, jadi guna kompos matang serta daun dan rumput potong dusun sendiri, jauhkan sungkupan daripada batang, dan betulkan saliran dahulu.</p><p>Ini sebahagian daripada pencegahan. Ia tidak menggantikan rawatan pokok yang berpenyakit. Jika batang sudah menunjukkan lesi, lihat aplikasi Durian Trunk Disease Triage.</p>"})
  +src(["AC","IS"])+'</div>'
- +'<div class="card"><h3>'+T({zh:"榴莲园里的试验结果",en:"What a durian orchard trial found",bm:"Apa yang ditemui ujian dusun durian"})+'</h3>'
+ +'<div class="card"><h3>'+T({zh:"榴莲园里的试验结果",en:"What a durian orchard trial found",bm:"Apa yang ditemui ujian dusun durian"})+'</h3>'+ART.trial
  +T({zh:"<p>越南湄公河三角洲的三个果园，六年生 Ri 6 榴莲，连续两季。在同样的化肥基础上，坐果后追施以甘蔗滤泥为原料的商品有机肥（每季每公顷 5 吨，约合每英亩 2 吨），并喷三次含钾、钙的叶面肥。</p>",
      en:"<p>Three orchards in Vietnam's Mekong Delta, six-year-old Ri 6 durian, two seasons. On top of the same mineral fertiliser, trees received a commercial organic fertiliser made from sugarcane filter cake after fruit set (5 tonnes per hectare each season, about 2 tonnes per acre) and three sprays of a foliar fertiliser containing potassium and calcium.</p>",
      bm:"<p>Tiga dusun di Delta Mekong, Vietnam, durian Ri 6 berumur enam tahun, dua musim. Di samping baja kimia yang sama, pokok menerima baja organik komersial daripada kek turas tebu selepas pembentukan buah (5 tan sehektar setiap musim, kira-kira 2 tan seekar) dan tiga semburan baja daun yang mengandungi kalium dan kalsium.</p>"})
@@ -601,11 +683,11 @@ function moreBuild(){
  +'<p>'+T({zh:"这是有机肥加叶面肥合用的结果，品种、气候和土壤都和马来西亚不同，作者也说还需要做经济分析。但它说明两季之内，有机质和果实品质可以一起改善。",en:"These results are for organic fertiliser and foliar feed used together. The variety, climate and soil differ from Malaysia, and the authors say more economic analysis is needed. It does show that organic matter and fruit quality can improve together within two seasons.",bm:"Keputusan ini untuk baja organik dan baja daun yang digunakan bersama. Varieti, iklim dan tanah berbeza daripada Malaysia, dan penulis menyatakan analisis ekonomi lanjut diperlukan. Ia menunjukkan bahan organik dan kualiti buah boleh bertambah baik bersama dalam dua musim."})+'</p>'+src(["DG"])+'</div>';
 }
 function extraBuild(){
- const D=(t,b,r)=>'<details><summary><span class="row"><span>'+esc(T(t))+'</span></span></summary><div class="in"><p>'+esc(T(b))+'</p>'+src(r)+'</div></details>';
+ const D=(t,b,r,p)=>'<details><summary><span class="row"><span>'+esc(T(t))+'</span></span></summary><div class="in">'+(p||"")+'<p>'+esc(T(b))+'</p>'+src(r)+'</div></details>';
  return D({zh:"豆科覆盖作物：不适合榴莲园",en:"Legume cover crops: not for durian orchards",bm:"Tanaman penutup bumi kekacang: bukan untuk dusun durian"},
   {zh:"榴莲种植者请注意：这个办法不适合榴莲。榴莲要靠一段干旱来催花：马来西亚对 110 棵榴莲的观察发现，大约连续 15 天干旱之后约 50 天开花；泰国的试验也发现，未经药剂处理的树需要连续 10 到 14 天干旱才能成花。Mucuna bracteata 这类茂密的覆盖作物让地面一直阴凉潮湿，正好和这段干旱对着干。目前没有试验直接比较覆盖作物和榴莲开花，这是按催花需要干旱推出来的。下面的内容只供种油棕或其他作物的人参考。活的覆盖物自己长有机质，不用搬运。在马来西亚油棕园的研究中，种植 Mucuna bracteata 的地块，土壤有机质、全氮、阳离子交换量和有效磷都显著提高。热带果树的研究也指出，常年有地被，可以减少冲刷和有机质流失、改善土壤结构，但覆盖作物会和果树争养分水分。这些是油棕和其他果树的结果，不是榴莲。这类藤本长势很猛，要经常割，别让它爬上树干和树冠。",
    en:"Durian growers, please note: this is not for durian. Durian needs a dry spell to trigger flowering. A Malaysian study of 110 durian trees found flowering about 50 days after roughly 15 dry days, and Thai trials found that untreated trees needed 10 to 14 continuous dry days to flower. A dense cover such as Mucuna bracteata keeps the ground shaded and moist, which works against that dry spell. No trial has compared cover crops and durian flowering directly; this follows from the need for a dry spell. The rest is for growers of oil palm or other crops. A living cover grows its own organic matter, with nothing to haul. In a Malaysian oil palm study, plots with Mucuna bracteata had significantly more soil organic matter, total nitrogen, cation exchange capacity and available phosphorus. Work on tropical fruit trees also notes that permanent ground cover reduces erosion and organic matter loss and improves soil structure, but cover crops compete with the trees for nutrients and water. These results are from oil palm and other fruit trees, not durian. These vines grow hard, so cut them back often and keep them off trunks and canopies.",
-   bm:"Penanam durian, sila ambil perhatian: ini bukan untuk durian. Durian memerlukan tempoh kering untuk mencetuskan pembungaan. Satu kajian di Malaysia ke atas 110 pokok durian mendapati pembungaan kira-kira 50 hari selepas lebih kurang 15 hari kering, dan ujian di Thailand mendapati pokok tanpa rawatan memerlukan 10 hingga 14 hari kering berterusan untuk berbunga. Penutup yang lebat seperti Mucuna bracteata mengekalkan tanah teduh dan lembap, yang bertentangan dengan tempoh kering itu. Tiada ujian yang membandingkan tanaman penutup dengan pembungaan durian secara langsung; ini berdasarkan keperluan tempoh kering. Selebihnya untuk penanam kelapa sawit atau tanaman lain. Penutup hidup menghasilkan bahan organik sendiri, tanpa perlu diangkut. Dalam kajian kelapa sawit di Malaysia, plot dengan Mucuna bracteata mempunyai bahan organik tanah, jumlah nitrogen, kapasiti pertukaran kation dan fosforus tersedia yang jauh lebih tinggi. Kajian pokok buah tropika juga menyatakan penutup bumi kekal mengurangkan hakisan dan kehilangan bahan organik serta memperbaiki struktur tanah, tetapi tanaman penutup bersaing dengan pokok untuk nutrien dan air. Keputusan ini daripada kelapa sawit dan pokok buah lain, bukan durian. Tumbuhan menjalar ini tumbuh subur, jadi cantas selalu dan jauhkan daripada batang dan kanopi."},["EG","CH","MB","LE"])
+   bm:"Penanam durian, sila ambil perhatian: ini bukan untuk durian. Durian memerlukan tempoh kering untuk mencetuskan pembungaan. Satu kajian di Malaysia ke atas 110 pokok durian mendapati pembungaan kira-kira 50 hari selepas lebih kurang 15 hari kering, dan ujian di Thailand mendapati pokok tanpa rawatan memerlukan 10 hingga 14 hari kering berterusan untuk berbunga. Penutup yang lebat seperti Mucuna bracteata mengekalkan tanah teduh dan lembap, yang bertentangan dengan tempoh kering itu. Tiada ujian yang membandingkan tanaman penutup dengan pembungaan durian secara langsung; ini berdasarkan keperluan tempoh kering. Selebihnya untuk penanam kelapa sawit atau tanaman lain. Penutup hidup menghasilkan bahan organik sendiri, tanpa perlu diangkut. Dalam kajian kelapa sawit di Malaysia, plot dengan Mucuna bracteata mempunyai bahan organik tanah, jumlah nitrogen, kapasiti pertukaran kation dan fosforus tersedia yang jauh lebih tinggi. Kajian pokok buah tropika juga menyatakan penutup bumi kekal mengurangkan hakisan dan kehilangan bahan organik serta memperbaiki struktur tanah, tetapi tanaman penutup bersaing dengan pokok untuk nutrien dan air. Keputusan ini daripada kelapa sawit dan pokok buah lain, bukan durian. Tumbuhan menjalar ini tumbuh subur, jadi cantas selalu dan jauhkan daripada batang dan kanopi."},["EG","CH","MB","LE"],ART.dry)
  +D({zh:"生物炭",en:"Biochar",bm:"Biochar"},
   {zh:"一项全球汇总分析发现，生物炭在温带平均不增产，在热带平均增产 25%，原因是它在酸性、贫瘠的热带土壤里起到了调酸和补养分的作用；养分含量高的生物炭效果更好。这是大田作物的平均数，没有榴莲的数据，各种生物炭差别也很大。这里只作介绍，不给用量。",
    en:"A global analysis found that biochar gave no average yield gain in temperate regions but a 25% average gain in the tropics, because it limes and fertilises acid, low-fertility tropical soils. Biochar with more nutrients did better. These are averages for field crops, there is no durian data, and biochars vary widely. This is information only, with no rate given.",
@@ -637,13 +719,13 @@ function build(){
  +LOSS.map(l=>'<div class="loss">'+l.i+'<div><b>'+esc(T(l.t))+'</b><p>'+esc(T(l.b))+'</p></div></div>').join("")+src(["FB"])+'</div>'
 
  +'<div class="card"><h3>'+T({zh:"堆肥熟了没有",en:"Is the compost ready?",bm:"Adakah kompos sudah sedia?"})+'</h3>'
- +CQ.map(q=>'<div class="q"><span class="lab">'+esc(T(q.q))+'</span><div class="chips">'+q.o.map((o,i)=>chip("cq."+q.id,i,T(o),cq[q.id]===i)).join("")+'</div></div>').join("")
+ +CQ.map(q=>'<div class="q"><div class="hd">'+CQI[q.id]+'<span class="lab">'+esc(T(q.q))+'</span></div><div class="chips">'+q.o.map((o,i)=>chip("cq."+q.id,i,T(o),cq[q.id]===i)).join("")+'</div></div>').join("")
  +compostResult()
  +'<details><summary><span class="row"><span>'+T({zh:"想更有把握：种子发芽测试",en:"To be surer: the seed test",bm:"Untuk lebih pasti: ujian biji benih"})+'</span></span></summary><div class="in"><p>'
  +T({zh:"在堆肥里撒一些发芽快的种子，比如萝卜。没熟的堆肥里常有伤害种胚的物质，种子不发芽或苗发黄，就是还没熟。",en:"Sow some fast seeds, such as radish, in the compost. Immature compost often contains substances that kill seed embryos, so seeds that fail to sprout or seedlings that yellow mean it is not ready.",bm:"Semai beberapa biji benih yang cepat bercambah, seperti lobak, dalam kompos. Kompos belum matang sering mengandungi bahan yang membunuh embrio biji, jadi biji yang gagal bercambah atau anak benih yang menguning bermakna ia belum sedia."})
  +'</p>'+src(["UF"])+'</div></details></div>'
 
- +'<div class="card"><h3>'+T({zh:"酸性土里的铝",en:"Aluminium in acid soils",bm:"Aluminium dalam tanah asid"})+'</h3>'
+ +'<div class="card"><h3>'+T({zh:"酸性土里的铝",en:"Aluminium in acid soils",bm:"Aluminium dalam tanah asid"})+'</h3>'+ART.al
  +T({zh:"<p>本地的老成土和氧化土偏酸，交换性铝常常高到伤根的程度。有机质能帮上忙：在一种酸性氧化土上的试验中，加入草屑、家庭堆肥等四种有机物料后，土壤酸碱度都升高了，交换性铝都降低了。研究者认为，这是减轻铝毒、减少石灰用量的一种低投入办法。</p><p>它是帮手，不能代替调酸。酸碱度怎么看、怎么调，见《养分辨症》软件。</p>",
      en:"<p>Local Ultisols and Oxisols are acid, and exchangeable aluminium is often high enough to hurt roots. Organic matter helps: in a trial on an acid Oxisol, adding four organic materials, including grass residues and household compost, raised soil pH and lowered exchangeable aluminium in every case. The researchers called it a practicable low-input way to reduce aluminium toxicity and lime requirement.</p><p>It helps, but it does not replace correcting pH. For reading and correcting pH, see the Nutrient Triage app.</p>",
      bm:"<p>Tanah Ultisol dan Oksisol tempatan berasid, dan aluminium boleh tukar sering cukup tinggi untuk mencederakan akar. Bahan organik membantu: dalam satu ujian pada Oksisol berasid, menambah empat bahan organik, termasuk sisa rumput dan kompos rumah, menaikkan pH tanah dan menurunkan aluminium boleh tukar dalam setiap kes. Penyelidik menyifatkannya sebagai cara input rendah yang praktikal untuk mengurangkan ketoksikan aluminium dan keperluan kapur.</p><p>Ia membantu, tetapi tidak menggantikan pembetulan pH. Untuk membaca dan membetulkan pH, lihat aplikasi Triaj Nutrien.</p>"})
