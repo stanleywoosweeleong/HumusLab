@@ -81,10 +81,20 @@ self.addEventListener("activate", function(e){
 self.addEventListener("fetch", function(e){
   var req = e.request;
   if (req.method !== "GET") return;
+  /* DevTools sends this combination; fetching it from a worker always fails */
+  if (req.cache === "only-if-cached" && req.mode !== "same-origin") return;
 
   var url;
   try { url = new URL(req.url); } catch (err) { return; }
   if (url.origin !== self.location.origin) return;
+  /* only this app's own files; other pages on the same host are not ours */
+  if (url.href.indexOf(self.registration.scope) !== 0) return;
+
+  /* a failed network request becomes a plain "offline" answer instead of an
+     unhandled error in the console */
+  var offline = function(){
+    return new Response("", { status: 504, statusText: "Offline" });
+  };
 
   if (req.mode === "navigate"){
     e.respondWith(
@@ -93,26 +103,26 @@ self.addEventListener("fetch", function(e){
         return fetch(req).then(function(res){
           if (res.ok){
             var copy = res.clone();
-            caches.open(CACHE).then(function(c){ c.put(INDEX, copy); });
+            e.waitUntil(caches.open(CACHE).then(function(c){ return c.put(INDEX, copy); }).catch(function(){}));
           }
           return res;
         });
-      })
+      }).catch(offline)
     );
     return;
   }
 
   e.respondWith(
-    caches.match(req).then(function(hit){
+    caches.match(req, { ignoreSearch: true }).then(function(hit){
       if (hit) return hit;
       return fetch(req).then(function(res){
         if (res && res.status === 200 && res.type === "basic"){
           var copy = res.clone();
-          caches.open(CACHE).then(function(c){ c.put(req, copy); });
+          e.waitUntil(caches.open(CACHE).then(function(c){ return c.put(req, copy); }).catch(function(){}));
         }
         return res;
       });
-    })
+    }).catch(offline)
   );
 });
 

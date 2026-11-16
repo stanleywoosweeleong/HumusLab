@@ -113,12 +113,16 @@ nav div{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:42
 nav button{background:none;border:0;color:#d9cdb8;padding:.45rem .1rem .55rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.85rem;font-weight:700;border-top:4px solid transparent}
 nav button[aria-current="page"]{color:#fff;border-top-color:#fff}
 nav svg{width:1.6rem;height:1.6rem}
-#pick{position:fixed;inset:0;z-index:20;background:var(--humus);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:24px;text-align:center}
+#pick{position:fixed;inset:0;z-index:20;background:var(--humus);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:20px 24px;text-align:center;overflow:auto}
 #pick.on{display:flex}
-#pick h1{font-size:1.8rem;font-weight:800}
-#pick p{font-size:1.05rem;max-width:22rem}
-#pick .btns{display:flex;flex-direction:column;gap:.7rem;width:100%;max-width:16rem}
-#pick button{background:#fff;color:var(--humus);border:0;border-radius:4px;font-weight:800;font-size:1.25rem;padding:.8rem}
+#pick>svg{flex:none;width:64px;height:64px}
+#pick>*{flex-shrink:0}
+@media (max-height:600px){#pick{gap:.8rem;padding:14px 24px;justify-content:safe center}#pick>svg{width:44px;height:44px}#pick .btns{gap:.6rem}#pick button{padding:.55rem .8rem}}
+#pick h1{font-size:1.8rem;font-weight:800;line-height:1.25;margin:0}
+#pick .btns{display:flex;flex-direction:column;gap:.8rem;width:100%;max-width:19rem}
+#pick button{background:#fff;color:var(--humus);border:0;border-radius:4px;font-family:inherit;padding:.75rem .8rem;display:flex;flex-direction:column;gap:.15rem;align-items:center;cursor:pointer}
+#pick button b{font-weight:800;font-size:1.3rem;pointer-events:none}
+#pick button span{font-weight:600;font-size:.95rem;line-height:1.3;pointer-events:none;text-wrap:balance}
 ol.refs{margin:0;padding-left:1.5rem;display:flex;flex-direction:column;gap:.6rem}
 ol.refs li{overflow-wrap:anywhere}
 .qr{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center}
@@ -137,8 +141,7 @@ ol.refs li{overflow-wrap:anywhere}
 <div id="pick" role="dialog" aria-modal="true">
   <svg viewBox="0 0 64 64" width="84" height="84" aria-hidden="true"><rect x="4" y="34" width="56" height="26" rx="3" fill="#6b4524"/><rect x="4" y="34" width="56" height="8" fill="#2a1c10"/><path d="M32 34V16" stroke="#fff" stroke-width="3"/><path d="M32 22c-9 0-13-5-13-11 8 0 13 4 13 11zM32 26c8 0 12-4 12-10-7 0-12 4-12 10z" fill="#7fc98f"/><circle cx="16" cy="50" r="2.5" fill="#d9cdb8"/><circle cx="30" cy="53" r="2" fill="#d9cdb8"/><circle cx="46" cy="49" r="2.5" fill="#d9cdb8"/></svg>
   <div><h1>沃土有机质</h1><h1>HumusLab</h1></div>
-  <p>土壤有机质与腐植酸 · Soil organic matter &amp; humic substances · Bahan organik tanah &amp; asid humik</p>
-  <div class="btns"><button type="button" data-l="zh">中文</button><button type="button" data-l="en">English</button><button type="button" data-l="bm">Malay</button></div>
+  <div class="btns"><button type="button" data-l="zh" lang="zh-Hans"><b>中文</b><span>土壤有机质与腐植酸</span></button><button type="button" data-l="en" lang="en"><b>English</b><span>Soil organic matter and humic substances</span></button><button type="button" data-l="bm" lang="ms"><b>Malay</b><span>Bahan organik tanah dan asid humik</span></button></div>
 </div>
 
 <header>
