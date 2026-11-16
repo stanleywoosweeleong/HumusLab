@@ -6,7 +6,7 @@ Live: https://stanleywoosweeleong.github.io/HumusLab/
 
 ## Files
 
-- `index.html` — the whole app (markup, styles, logic, content, references)
+- `index.html` — the whole app (markup, styles, logic, content, references), including the fulvic acid section
 - `sw.js` — self-updating service worker; no version number to bump
 - `manifest.webmanifest`, `icons/` — install icons and the WhatsApp link-preview image
 
