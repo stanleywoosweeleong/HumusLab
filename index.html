@@ -102,8 +102,8 @@ input[type=text]{font:inherit;font-weight:700;width:100%;max-width:12rem;padding
 .kv{display:grid;grid-template-columns:1fr auto;gap:.3rem .8rem;align-items:baseline}
 .kv b{font-variant-numeric:tabular-nums;text-align:right;font-size:1.1rem}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--humus);display:flex;justify-content:center}
-nav div{display:grid;grid-template-columns:repeat(6,1fr);width:100%;max-width:42rem}
-nav button{background:none;border:0;color:#d9cdb8;padding:.45rem .1rem .55rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.72rem;font-weight:700;border-top:4px solid transparent}
+nav div{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:42rem}
+nav button{background:none;border:0;color:#d9cdb8;padding:.45rem .1rem .55rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.85rem;font-weight:700;border-top:4px solid transparent}
 nav button[aria-current="page"]{color:#fff;border-top-color:#fff}
 nav svg{width:1.6rem;height:1.6rem}
 #pick{position:fixed;inset:0;z-index:20;background:var(--humus);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:24px;text-align:center}
@@ -142,11 +142,9 @@ ol.refs li{overflow-wrap:anywhere}
 
 <main>
   <section id="v-basics"></section>
-  <section id="v-effects"></section>
-  <section id="v-humic"></section>
+    <section id="v-humic"></section>
   <section id="v-build"></section>
   <section id="v-check"></section>
-  <section id="v-sources"></section>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toastmsg"></span><button type="button" id="toastgo"></button><button type="button" id="toastx" aria-label="✕">✕</button></div>
@@ -201,12 +199,13 @@ const REF={
  UF:{c:"University of Florida IFAS Extension. Compost maturity tests.",u:"https://sfyl.ifas.ufl.edu/sarasota/natural-resources/waste-reduction/composting/what-is-composting/when-is-compost-ready/compost-maturity-test/"},
  KM:{c:"Kim JG, Kim TH, Yeon DB, Lee JS (2007). Decomposition of hydrogen peroxide by Mn-oxide, soil organic matter, sulfide and soils. ASA-CSSA-SSSA Annual Meeting, paper 288-5.",u:"https://download.clib.psu.ac.th/datawebclib/e_resource/e_database/agronomy/2007/techprogram/AM07/P34220.HTM"},
  DO:{c:"Do SH, Batchelor B, Lee HK, Kong SH (2009). Hydrogen peroxide decomposition on manganese oxide (pyrolusite): kinetics, intermediates, and mechanism. Chemosphere.",u:"https://doi.org/10.1016/j.chemosphere.2008.11.075"},
+ SA:{c:"Magdoff F, van Es H (2021). Building Soils for Better Crops, 4th ed., Chapter 3: Amount of organic matter in soils. USDA Sustainable Agriculture Research and Education (SARE).",u:"https://www.sare.org/publications/building-soils-for-better-crops/amount-of-organic-matter-in-soils/"},
  DU:{c:"Effectiveness of zeolite and humic acid-based granular NPK fertilizer on durian (Durio zibethinus) growth (2024). FISAED conference, IPB University.",u:"https://conference.ipb.ac.id/index.php/fisaed/article/view/1309"}
 };
 const URL_APP="https://stanleywoosweeleong.github.io/HumusLab/";
 const QR='<svg role="img" aria-label="QR" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#1d1710" d="M2 2.5h7m1 0h1m1 0h1m1 0h2m2 0h6m1 0h1m2 0h7m-33 1h1m5 0h1m1 0h2m3 0h1m2 0h1m1 0h1m4 0h1m2 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h4m2 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m5 0h3m3 0h1m1 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h2m1 0h2m2 0h1m2 0h1m3 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h3m1 0h1m4 0h3m5 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m8 0h2m1 0h1m1 0h3m-25 1h1m1 0h2m1 0h3m1 0h4m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m2 0h1m1 0h2m-33 1h3m2 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h6m2 0h2m1 0h2m1 0h1m-33 1h3m2 0h5m2 0h1m1 0h1m2 0h1m3 0h1m1 0h1m3 0h3m1 0h2m-33 1h3m9 0h4m2 0h1m1 0h1m1 0h4m1 0h1m1 0h1m-29 1h1m2 0h4m2 0h3m5 0h1m4 0h3m1 0h1m1 0h1m1 0h1m-31 1h1m1 0h1m1 0h1m2 0h1m2 0h2m3 0h1m1 0h1m2 0h1m1 0h3m1 0h1m1 0h1m1 0h1m-31 1h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m1 0h2m2 0h1m-30 1h2m2 0h1m1 0h2m1 0h4m2 0h1m1 0h9m1 0h1m1 0h1m-31 1h1m2 0h1m1 0h3m3 0h3m1 0h1m2 0h2m1 0h3m1 0h2m1 0h3m-30 1h2m1 0h1m4 0h4m1 0h4m2 0h2m1 0h2m1 0h1m1 0h2m2 0h1m-33 1h2m1 0h2m1 0h3m1 0h4m1 0h3m2 0h1m1 0h1m2 0h1m1 0h2m1 0h2m-31 1h1m1 0h2m2 0h2m2 0h2m1 0h3m2 0h2m1 0h2m1 0h2m1 0h1m3 0h1m-33 1h2m2 0h1m1 0h1m11 0h3m1 0h1m1 0h1m4 0h4m-33 1h1m1 0h2m3 0h3m2 0h2m1 0h1m2 0h1m2 0h1m1 0h1m2 0h2m1 0h1m2 0h1m-27 1h4m1 0h2m3 0h3m2 0h4m1 0h7m-32 1h3m6 0h5m1 0h1m1 0h2m4 0h1m1 0h2m1 0h1m2 0h1m-33 1h1m3 0h3m1 0h1m2 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h5m2 0h2m-25 1h4m3 0h3m1 0h1m3 0h2m3 0h2m-30 1h7m1 0h5m3 0h1m2 0h2m1 0h3m1 0h1m1 0h1m-29 1h1m5 0h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h3m1 0h2m3 0h3m-31 1h1m1 0h3m1 0h1m3 0h2m3 0h1m1 0h1m1 0h2m2 0h6m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h2m4 0h6m4 0h1m2 0h3m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h3m2 0h1m1 0h1m2 0h6m1 0h2m-31 1h1m5 0h1m2 0h1m3 0h1m1 0h5m2 0h1m1 0h2m1 0h2m3 0h1m-33 1h7m1 0h3m1 0h1m2 0h4m2 0h1m1 0h1m4 0h1m1 0h1"/></svg>\n';
-const REFORDER=["L1","L2","L3","LK","LA","LI","OL","RO","C15","C02","NA","HB","LG","AN","OE","RS","AJ","MO","GF","LM","JI","KM","DO","FB","QG","NT","AB","TE","MH","BC","UF","MM","OF","SH","VS","US","DU"];
-const SHORT={L1:{zh:"笔记1",en:"Notes 1",bm:"Nota 1"},L2:{zh:"笔记2",en:"Notes 2",bm:"Nota 2"},L3:{zh:"笔记3 Visser",en:"Notes 3 Visser",bm:"Nota 3 Visser"},LK:"Lehmann & Kleber 2015",LA:"Lavallee 2020",LI:"Liang 2019",OL:"Olk 2019",RO:"Rose 2014",C15:"Canellas 2015",C02:"Canellas 2002",NA:"Nardi 2021",HB:"Hartz & Bottoms 2010",LG:"Lyons & Genc 2016",AN:"Asli & Neumann 2010",OE:"Olaetxea 2015",MM:"Minasny & McBratney 2018",OF:"Oldfield 2019",SH:"Shamshuddin (UPM)",VS:"FAO VSA 2008",US:"USDA NRCS",DU:"IPB 2024",RS:"Rauthan & Schnitzer 1981",AJ:"Anjum 2011",MO:"Mosa 2021",GF:"Iran. J. Hortic. Sci.",LM:"Lamar 2014",JI:"Jindo 2020",FB:"FAO 2005",QG:"Queensland Gov.",NT:"NT Gov.",AB:"Abu Bakar 2011",TE:"Teh (UPM)",MH:"Mokolobate & Haynes 2002",BC:"BC Gov.",UF:"UF/IFAS",KM:"Kim 2007",DO:"Do 2009"};
+const REFORDER=["L1","L2","L3","LK","LA","LI","OL","RO","C15","C02","NA","HB","LG","AN","MO","GF","LM","JI","KM","DO","FB","QG","NT","AB","TE","MH","BC","UF","SA","MM","SH","VS","US","DU"];
+const SHORT={L1:{zh:"笔记1",en:"Notes 1",bm:"Nota 1"},L2:{zh:"笔记2",en:"Notes 2",bm:"Nota 2"},L3:{zh:"笔记3 Visser",en:"Notes 3 Visser",bm:"Nota 3 Visser"},LK:"Lehmann & Kleber 2015",LA:"Lavallee 2020",LI:"Liang 2019",OL:"Olk 2019",RO:"Rose 2014",C15:"Canellas 2015",C02:"Canellas 2002",NA:"Nardi 2021",HB:"Hartz & Bottoms 2010",LG:"Lyons & Genc 2016",AN:"Asli & Neumann 2010",OE:"Olaetxea 2015",MM:"Minasny & McBratney 2018",OF:"Oldfield 2019",SH:"Shamshuddin (UPM)",VS:"FAO VSA 2008",US:"USDA NRCS",DU:"IPB 2024",RS:"Rauthan & Schnitzer 1981",AJ:"Anjum 2011",MO:"Mosa 2021",GF:"Iran. J. Hortic. Sci.",LM:"Lamar 2014",JI:"Jindo 2020",FB:"FAO 2005",QG:"Queensland Gov.",NT:"NT Gov.",AB:"Abu Bakar 2011",TE:"Teh (UPM)",MH:"Mokolobate & Haynes 2002",BC:"BC Gov.",UF:"UF/IFAS",KM:"Kim 2007",DO:"Do 2009",SA:"Magdoff & van Es (SARE)"};
 const src=keys=>'<p class="src">'+T({zh:"来源：",en:"Sources: ",bm:"Sumber: "})+keys.map(k=>esc(typeof SHORT[k]==="string"?SHORT[k]:T(SHORT[k]))).join(" · ")+"</p>";
 
 /* ---------- UI strings ---------- */
@@ -214,11 +213,9 @@ const S={
  title:{zh:"沃土有机质",en:"HumusLab",bm:"HumusLab"},
  tabs:[
   {id:"basics",n:{zh:"基础",en:"Basics",bm:"Asas"},i:'<path d="M3 14h18v7H3z" fill="currentColor" opacity=".45"/><path d="M12 14V6m0 3c-3 0-5-2-5-4 3 0 5 1 5 4zm0 2c3 0 5-2 5-4-3 0-5 1-5 4z" fill="none" stroke="currentColor" stroke-width="2"/>'},
-  {id:"effects",n:{zh:"作用",en:"Effects",bm:"Kesan"},i:'<path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.4"/><circle cx="8" cy="6" r="2.4" fill="currentColor"/><circle cx="15" cy="12" r="2.4" fill="currentColor"/><circle cx="10" cy="18" r="2.4" fill="currentColor"/>'},
   {id:"humic",n:{zh:"腐植酸",en:"Humic",bm:"Humik"},i:'<path d="M8 3h8M9 3v6l-4 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-4-9V3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7.5 15h9l1.6 4H5.9z" fill="currentColor"/>'},
   {id:"build",n:{zh:"养土",en:"Build",bm:"Bina"},i:'<path d="M3 20h18M5 20c1-4 4-6 7-6s6 2 7 6" fill="currentColor" opacity=".45"/><path d="M12 14V4M9 7l3-3 3 3" fill="none" stroke="currentColor" stroke-width="2.2"/>'},
-  {id:"check",n:{zh:"检查",en:"Check",bm:"Semak"},i:'<path d="M5 4h14v17H5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 9l2 2 4-4M8 16h8" fill="none" stroke="currentColor" stroke-width="2.2"/>'},
-  {id:"sources",n:{zh:"来源",en:"Sources",bm:"Rujukan"},i:'<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z M12 6v14" fill="none" stroke="currentColor" stroke-width="2"/>'}
+  {id:"check",n:{zh:"检查",en:"Check",bm:"Semak"},i:'<path d="M5 4h14v17H5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 9l2 2 4-4M8 16h8" fill="none" stroke="currentColor" stroke-width="2.2"/>'}
  ],
  ev:{strong:{zh:"证据充分",en:"Well supported",bm:"Bukti kukuh"},mixed:{zh:"视情况而定",en:"Depends on conditions",bm:"Bergantung keadaan"},weak:{zh:"证据有限",en:"Limited evidence",bm:"Bukti terhad"}}
 };
@@ -265,9 +262,9 @@ function basics(){
   en:"<p>A 2015 paper in Nature argued that the evidence does not support large, stable “humic substance” molecules forming in soil. Soil organic matter looks more like a continuum of compounds at different stages of decomposition. How long it lasts depends mainly on whether microbes can reach it and whether clay minerals protect it.</p><p>Later measurements found that dead microbial remains can make up more than half of soil organic carbon. Feeding the soil really means feeding its microbes.</p><p>Other scientists replied that humic and fulvic acids extracted with alkali remain useful research tools, and have solved practical problems in pesticide binding, metal binding and compost maturity. Both views are in use today.</p>",
   bm:"<p>Satu kertas dalam Nature pada 2015 berhujah bahawa bukti tidak menyokong pembentukan molekul “bahan humik” yang besar dan stabil dalam tanah. Bahan organik tanah lebih mirip satu rangkaian sebatian pada pelbagai peringkat pereputan. Tempoh ia bertahan bergantung terutamanya pada sama ada mikrob dapat mencapainya dan sama ada mineral liat melindunginya.</p><p>Pengukuran kemudian mendapati sisa mikrob yang mati boleh membentuk lebih separuh karbon organik tanah. Memberi makan tanah sebenarnya memberi makan mikrobnya.</p><p>Saintis lain menjawab bahawa asid humik dan fulvik yang diekstrak dengan alkali masih alat kajian yang berguna, dan telah menyelesaikan masalah sebenar dalam pengikatan racun perosak, pengikatan logam dan kematangan kompos. Kedua-dua pandangan digunakan hari ini.</p>"});
  const lecTxt=T({
-  zh:"<p>课堂笔记的说法是经典模型：残体先变成非腐植物质，再经微生物作用聚合成高分子量的腐植物质。两类物质在所有土壤里同时存在，前者不断转化为后者。</p><p>这个模型解释了许多现象，但“聚合成大分子”这一步，如今受到质疑。请切换到“今天的看法”对照。</p>",
-  en:"<p>The lecture notes give the classical model: residues first become non-humic substances, then microbes help polymerise them into high-molecular-weight humic substances. Both kinds are present in every soil, and the first keeps changing into the second.</p><p>The model explains a lot, but the step where small molecules join into giant ones is now questioned. Switch to “Today's view” to compare.</p>",
-  bm:"<p>Nota kuliah memberi model klasik: sisa mula-mula menjadi bahan bukan humik, kemudian mikrob membantu mempolimerkannya menjadi bahan humik berjisim molekul tinggi. Kedua-duanya ada dalam setiap tanah, dan yang pertama sentiasa berubah menjadi yang kedua.</p><p>Model ini menerangkan banyak perkara, tetapi langkah molekul kecil bercantum menjadi molekul gergasi kini dipersoalkan. Tukar ke “Pandangan hari ini” untuk membandingkan.</p>"});
+  zh:"<p>课堂笔记的说法是经典模型：残体先变成非腐植物质，再经微生物作用聚合成高分子量的腐植物质。两类物质在所有土壤里同时存在，前者不断转化为后者。</p><p>这个模型解释了许多现象，但“聚合成大分子”这一步，如今受到质疑。上面的图是今天的看法。</p>",
+  en:"<p>The lecture notes give the classical model: residues first become non-humic substances, then microbes help polymerise them into high-molecular-weight humic substances. Both kinds are present in every soil, and the first keeps changing into the second.</p><p>The model explains a lot, but the step where small molecules join into giant ones is now questioned. The picture above shows today's view.</p>",
+  bm:"<p>Nota kuliah memberi model klasik: sisa mula-mula menjadi bahan bukan humik, kemudian mikrob membantu mempolimerkannya menjadi bahan humik berjisim molekul tinggi. Kedua-duanya ada dalam setiap tanah, dan yang pertama sentiasa berubah menjadi yang kedua.</p><p>Model ini menerangkan banyak perkara, tetapi langkah molekul kecil bercantum menjadi molekul gergasi kini dipersoalkan. Gambar di atas menunjukkan pandangan hari ini.</p>"});
  const ae=T({
   zh:"<p><b>通气良好：</b>纤维素、半纤维素、蛋白质很快被分解成糖和氨基酸，再被氧化成 CO₂、水、铵、磷酸盐和硫酸盐，也就是植物能用的养分。剩下的主要是半分解的木质素和微生物细胞。</p>",
   en:"<p><b>With air:</b> cellulose, hemicellulose and protein are quickly broken into sugars and amino acids, then oxidised to CO₂, water, ammonium, phosphate and sulphate, which plants can use. What remains is mostly partly decomposed lignin and microbial cells.</p>",
@@ -279,10 +276,8 @@ function basics(){
  $("v-basics").innerHTML=
  '<h2>'+T({zh:"土壤有机质是什么",en:"What soil organic matter is",bm:"Apa itu bahan organik tanah"})+'</h2>'
  +'<p class="lead">'+T({zh:"土壤里所有来自动植物和微生物的有机物，活的不算。它不断有新的进来，也不断被分解掉。",en:"Everything in the soil that came from plants, animals and microbes, not counting what is still alive. New material keeps arriving and old material keeps being broken down.",bm:"Semua bahan dalam tanah yang berasal daripada tumbuhan, haiwan dan mikrob, tidak termasuk yang masih hidup. Bahan baharu sentiasa masuk dan bahan lama sentiasa terurai."})+'</p>'
- +'<div class="card"><div class="chips">'
- +chip("view","today",T({zh:"今天的看法",en:"Today's view",bm:"Pandangan hari ini"}),view==="today")
- +chip("view","lecture",T({zh:"课堂笔记的看法",en:"Lecture-notes view",bm:"Pandangan nota kuliah"}),view==="lecture")
- +'</div>'+(view==="today"?flowToday+todayTxt+src(["LK","LI","LA","OL"]):flowLecture+lecTxt+src(["L1"]))+'</div>'
+ +'<div class="card">'+flowToday+todayTxt+src(["LK","LI","LA","OL"])+'</div>'
+ +'<details><summary><span class="row"><span>'+T({zh:"课堂笔记里的经典模型",en:"The classical model in the lecture notes",bm:"Model klasik dalam nota kuliah"})+'</span></span></summary><div class="in">'+flowLecture+lecTxt+src(["L1"])+'</div></details>'
  +'<div class="card"><h3>'+T({zh:"分解需要空气",en:"Breakdown needs air",bm:"Pereputan perlukan udara"})+'</h3><div class="chips">'
  +chip("air","ae",T({zh:"通气的土",en:"Aerated soil",bm:"Tanah berudara"}),air==="ae")
  +chip("air","an",T({zh:"积水的土",en:"Waterlogged soil",bm:"Tanah bertakung"}),air==="an")
@@ -298,7 +293,8 @@ function basics(){
   zh:"<p>课堂笔记的结论：单用有机质，改善的是土壤物理和生物性状；单用化肥，增加的是速效养分；两者合用，土壤既有养分，又留得住、放得出。</p>",
   en:"<p>The lecture notes conclude: organic matter alone improves the soil's physical and biological condition; mineral fertiliser alone adds available nutrients; the two together give a soil that has nutrients, holds them and releases them.</p>",
   bm:"<p>Kesimpulan nota kuliah: bahan organik sahaja memperbaiki keadaan fizikal dan biologi tanah; baja kimia sahaja menambah nutrien tersedia; kedua-duanya bersama memberi tanah yang ada nutrien, memegangnya dan membebaskannya.</p>"})
- +src(["L1"])+'</div>';
+ +src(["L1"])+'</div>'
+ +effects()+sources();
 }
 
 /* ================= EFFECTS ================= */
@@ -331,18 +327,10 @@ const FX=[
   b:{zh:"腐植物质把微量元素包住，让它们留在溶液里。腐植物质促进植物吸铁，在水培和田间都得到证实，所以能减轻缺铁黄化。但要注意反面：Visser 记录过腐植质把铜抓得太紧，造成谷类缺铜的“开垦病”。",
      en:"Humic substances wrap trace metals and keep them in solution. Better iron uptake with humic substances has been shown in solution culture and in the field, which is why they can ease iron chlorosis. There is a flip side: Visser records “reclamation disease”, where humic matter held copper so tightly that cereals became copper deficient.",
      bm:"Bahan humik membalut logam surih dan mengekalkannya dalam larutan. Pengambilan besi yang lebih baik dengan bahan humik telah ditunjukkan dalam kultur larutan dan di ladang, sebab itu ia boleh meredakan klorosis besi. Ada sisi sebaliknya: Visser merekodkan “penyakit tebus guna”, apabila bahan humik memegang kuprum terlalu kuat sehingga bijirin kekurangan kuprum."}},
- {g:"chem",e:"weak",r:["L1","L2"],t:{zh:"缓冲酸碱",en:"Buffering pH",bm:"Menampan pH"},
-  b:{zh:"课堂笔记说有机质是缓冲剂，长期用化肥引起的酸碱变化会被它减缓；但也说明有机质本身不改变土壤酸碱度。所以它不能代替调酸。这一条我只在课堂笔记和产品图表里见到。",
-     en:"The lecture notes call organic matter a buffer that slows the pH drift caused by long-term mineral fertiliser. They also say organic matter itself does not change soil reaction, so it does not replace pH correction. I found this point only in the lecture notes and the product chart.",
-     bm:"Nota kuliah menyebut bahan organik sebagai penampan yang memperlahankan perubahan pH akibat baja kimia jangka panjang. Nota juga menyatakan bahan organik sendiri tidak mengubah tindak balas tanah, jadi ia tidak menggantikan pembetulan pH. Saya hanya menemui perkara ini dalam nota kuliah dan carta produk."}},
  {g:"chem",e:"mixed",r:["L1","L2","HB"],t:{zh:"让磷更有效",en:"Making phosphorus more available",bm:"Menjadikan fosforus lebih tersedia"},
   b:{zh:"课堂笔记说有机质能减少磷被固定。但加州大学用五种商品腐植酸在四种缺磷土壤上试验，施磷肥增加了吸磷量，加腐植酸没有。大量的有机质和几公斤的腐植酸产品不是一回事。",
      en:"The lecture notes say organic matter reduces phosphorus fixation. Yet a University of California trial with five commercial humic acids on four low-phosphorus soils found that phosphorus fertiliser raised uptake and humic acid did not. Tonnes of organic matter and a few kilograms of humic product are different things.",
      bm:"Nota kuliah menyatakan bahan organik mengurangkan pengikatan fosforus. Namun ujian Universiti California dengan lima asid humik komersial pada empat tanah rendah fosforus mendapati baja fosforus meningkatkan pengambilan, manakala asid humik tidak. Bertan-tan bahan organik dan beberapa kilogram produk humik ialah dua perkara berbeza."}},
- {g:"chem",e:"strong",r:["OL","L1"],t:{zh:"吸附农药和重金属",en:"Binding pesticides and heavy metals",bm:"Mengikat racun perosak dan logam berat"},
-  b:{zh:"田间研究发现农药优先结合在腐植酸上，移动性降低。金属离子在土壤和水里的行为，也要靠腐植酸和黄腐酸的结合位点才能算准。",
-     en:"Field studies found pesticides bind preferentially to humic acid, which reduces their movement. Predicting how metal ions behave in soil and water also depends on the binding sites of humic and fulvic acids.",
-     bm:"Kajian lapangan mendapati racun perosak lebih cenderung terikat pada asid humik, lalu kurang bergerak. Meramal kelakuan ion logam dalam tanah dan air juga bergantung pada tapak ikatan asid humik dan fulvik."}},
  {g:"bio",e:"strong",r:["L1","LI","LK"],t:{zh:"土壤生物的食物",en:"Food for soil life",bm:"Makanan hidupan tanah"},
   b:{zh:"课堂笔记称有机质是土壤里几乎一切生命活动的中心。今天的研究更进一步：微生物把残体变成自己的身体，死后的残体又成为稳定有机质的主体，可占一半以上。",
      en:"The lecture notes call organic matter the centre of nearly all life in the soil. Current research goes further: microbes turn residues into their own bodies, and their remains become the bulk of lasting organic matter, sometimes more than half.",
@@ -355,22 +343,10 @@ const FX=[
   b:{zh:"同一荟萃分析估计地上部干重平均增加 22%（±4%），逆境下更高（28%，正常条件 18%）。但这些多是温室和水培试验。田间按商品推荐量使用，结果很不一致；加州大学的番茄和生菜试验没有看到增产。",
      en:"The same meta-analysis estimated shoot dry weight rises by 22% (±4%) on average, more under stress (28% against 18% without stress). Most of those trials were in greenhouses and solution culture. In the field at commercial label rates results are inconsistent, and the University of California tomato and lettuce trials saw no yield gain.",
      bm:"Meta-analisis yang sama menganggarkan berat kering pucuk naik purata 22% (±4%), lebih tinggi dalam keadaan tekanan (28% berbanding 18% tanpa tekanan). Kebanyakan ujian itu dijalankan di rumah hijau dan kultur larutan. Di ladang pada kadar label komersial, keputusan tidak konsisten, dan ujian tomato serta salad Universiti California tidak melihat peningkatan hasil."}},
- {g:"plant",e:"mixed",r:["L3","NA","C15"],t:{zh:"类激素作用",en:"Hormone-like action",bm:"Tindakan seperti hormon"},
-  b:{zh:"Visser 当年持保留态度：腐植酸的活性远低于真正的生长素，而且不像生长素那样抑制根。近年的研究认为腐植物质通过类似激素的信号通路起作用，小分子能进入根细胞，大分子则作用在细胞外的受体上。机理还没有完全定论。",
-     en:"Visser was cautious: humic activity is far weaker than true auxin, and unlike auxin it does not inhibit roots. Recent work holds that humic substances act through hormone-like signalling, with small molecules entering root cells and large ones acting on receptors outside the cell. The mechanism is not fully settled.",
-     bm:"Visser berhati-hati: aktiviti humik jauh lebih lemah daripada auksin sebenar, dan tidak merencat akar seperti auksin. Kajian terkini berpendapat bahan humik bertindak melalui isyarat seperti hormon, dengan molekul kecil memasuki sel akar dan molekul besar bertindak pada reseptor di luar sel. Mekanismenya belum muktamad."}},
- {g:"plant",e:"mixed",r:["L3","HB"],t:{zh:"种子发芽更快",en:"Faster germination",bm:"Percambahan lebih cepat"},
-  b:{zh:"Visser 引述的早期试验：腐植酸和黄腐酸加快发芽速度，但不增加发芽粒数。加州大学用 250 到 750 ppm 腐植酸溶液浸泡生菜种子，发芽速度和发芽率与清水相同。",
-     en:"Early trials cited by Visser: humic and fulvic acids speed up germination but do not raise the number of seeds that germinate. The University of California soaked lettuce seed in 250 to 750 ppm humic acid and saw the same speed and rate as water.",
-     bm:"Ujian awal yang dipetik Visser: asid humik dan fulvik mempercepat percambahan tetapi tidak menambah bilangan biji yang bercambah. Universiti California merendam biji salad dalam asid humik 250 hingga 750 ppm dan melihat kelajuan serta kadar yang sama seperti air."}},
  {g:"plant",e:"strong",r:["L3","AN"],t:{zh:"用多了反而有害",en:"Too much does harm",bm:"Terlalu banyak memudaratkan"},
-  b:{zh:"Visser 提醒：腐植酸越多呼吸越强，光合却跟不上，代谢会失衡；浓度很高时细胞膜受损。2010 年的试验中，每升 1 克的腐植酸堵住玉米根细胞壁的孔，根的导水能力最多降了 44%，地上部生长和抗旱力都下降。详见“腐植酸”页的浓度对照。",
-     en:"Visser warns that respiration keeps rising with more humic acid while photosynthesis does not, so metabolism goes out of balance, and at very high concentration cell membranes are damaged. In a 2010 trial, humic acid at 1 g per litre clogged pores in maize root cell walls, cut root water conductivity by up to 44%, and reduced shoot growth and drought resistance. See the concentration comparison on the Humic tab.",
-     bm:"Visser memberi amaran bahawa respirasi terus meningkat dengan lebih banyak asid humik sedangkan fotosintesis tidak, jadi metabolisme tidak seimbang, dan pada kepekatan sangat tinggi membran sel rosak. Dalam ujian 2010, asid humik pada 1 g seliter menyumbat liang dinding sel akar jagung, mengurangkan kekonduksian air akar sehingga 44%, serta mengurangkan pertumbuhan pucuk dan ketahanan kemarau. Lihat perbandingan kepekatan dalam tab Humik."}},
- {g:"prod",e:"mixed",r:["OF"],t:{zh:"有机质高，产量高，但有上限",en:"More organic matter, more yield, up to a point",bm:"Lebih bahan organik, lebih hasil, hingga satu tahap"},
-  b:{zh:"全球玉米和小麦数据显示，土壤有机碳越高产量越高，增幅最大的是 0.1% 到 2% 这一段，到 2% 左右就趋平。这是粮食作物的结果，榴莲没有同类数据。它的启示是：最贫瘠的土，补有机质最划算。",
-     en:"Global maize and wheat data show yields rise with soil organic carbon. The biggest gains come between 0.1% and 2%, and they level off at about 2%. These are grain crops, and there is no equivalent data for durian. The lesson is that the poorest soils gain the most from added organic matter.",
-     bm:"Data jagung dan gandum global menunjukkan hasil meningkat dengan karbon organik tanah. Peningkatan terbesar antara 0.1% dan 2%, dan mendatar pada kira-kira 2%. Ini tanaman bijirin, dan tiada data setara untuk durian. Pengajarannya: tanah paling miskin paling beruntung daripada tambahan bahan organik."}},
+  b:{zh:"Visser 提醒：腐植酸越多呼吸越强，光合却跟不上，代谢会失衡；浓度很高时细胞膜受损。2010 年的试验中，每升 1 克的腐植酸堵住玉米根细胞壁的孔，根的导水能力最多降了 44%，地上部生长和抗旱力都下降。“腐植酸”页的葡萄试验也是同样的结果。",
+     en:"Visser warns that respiration keeps rising with more humic acid while photosynthesis does not, so metabolism goes out of balance, and at very high concentration cell membranes are damaged. In a 2010 trial, humic acid at 1 g per litre clogged pores in maize root cell walls, cut root water conductivity by up to 44%, and reduced shoot growth and drought resistance. The grape trial on the Humic tab shows the same pattern.",
+     bm:"Visser memberi amaran bahawa respirasi terus meningkat dengan lebih banyak asid humik sedangkan fotosintesis tidak, jadi metabolisme tidak seimbang, dan pada kepekatan sangat tinggi membran sel rosak. Dalam ujian 2010, asid humik pada 1 g seliter menyumbat liang dinding sel akar jagung, mengurangkan kekonduksian air akar sehingga 44%, serta mengurangkan pertumbuhan pucuk dan ketahanan kemarau. Ujian anggur dalam tab Humik menunjukkan corak yang sama."}},
  {g:"prod",e:"weak",r:["DU"],t:{zh:"榴莲上的试验",en:"Trials on durian",bm:"Ujian pada durian"},
   b:{zh:"我只找到一项：印尼茂物农业大学 2024 年在猫山王和 Bawor 幼树上，比较了添加沸石和腐植酸的 6:6:12 颗粒肥与普通 15:15:15。两者的株高、茎粗和分枝数没有显著差别。换个角度看，养分含量低得多的肥料长得一样好；但它没有证明腐植酸让榴莲长得更快，也没有结果期的数据。",
      en:"I found only one: in 2024 IPB University in Indonesia compared a 6:6:12 granular fertiliser with added zeolite and humic acid against ordinary 15:15:15 on young Musang King and Bawor trees. Height, stem diameter and branch number did not differ significantly. Seen one way, a fertiliser with far less nutrient did as well. It does not show humic acid makes durian grow faster, and it has no data from bearing trees.",
@@ -383,8 +359,7 @@ const FX=[
 let fg="all";
 function effects(){
  const list=FX.filter(x=>fg==="all"||x.g===fg);
- $("v-effects").innerHTML=
- '<h2>'+T({zh:"有机质和腐植酸到底做了什么",en:"What organic matter and humic substances really do",bm:"Apa sebenarnya yang dilakukan bahan organik dan humik"})+'</h2>'
+ return '<h2>'+T({zh:"有机质和腐植酸到底做了什么",en:"What organic matter and humic substances really do",bm:"Apa sebenarnya yang dilakukan bahan organik dan humik"})+'</h2>'
  +'<p class="lead">'+T({zh:"课堂笔记和产品图表里的每一项说法，对照近年的研究，分成三档。",en:"Each claim in the lecture notes and the product chart, checked against recent research and sorted into three grades.",bm:"Setiap dakwaan dalam nota kuliah dan carta produk, disemak dengan kajian terkini dan dibahagi kepada tiga gred."})+'</p>'
  +'<div class="chips">'+["strong","mixed","weak"].map(badge).join("")+'</div>'
  +'<div class="chips">'+GROUPS.map(g=>chip("fg",g.id,T(g.n),fg===g.id)).join("")+'</div>'
@@ -401,22 +376,6 @@ const FRAC={
   b:{zh:"碱也提取不出来的那部分，留在土里。它不进入液体腐植酸产品，但在土壤里一直在。",en:"The part that even alkali cannot extract. It stays in the soil. It is not in liquid humic products, but it is always there in soil.",bm:"Bahagian yang tidak dapat diekstrak walaupun dengan alkali. Ia kekal dalam tanah. Ia tiada dalam produk humik cecair, tetapi sentiasa ada dalam tanah."}}
 };
 let fr=null;
-const DOSE=[
- {v:"10",t:{zh:"黄腐酸让轮藻细胞里的原生质流动加快。",en:"Fulvic acid sped up the streaming of protoplasm inside stonewort cells.",bm:"Asid fulvik mempercepat aliran protoplasma dalam sel stonewort."},r:["L3"],e:"strong"},
- {v:"20",t:{zh:"失水的堇菜细胞恢复吸水明显更快。褐煤腐植酸表现出类似赤霉素的效果，促进莴苣和燕麦幼苗伸长。",en:"Wilted violet cells took water back up noticeably faster. A lignite humic acid behaved like gibberellin and lengthened lettuce and oat seedlings.",bm:"Sel violet yang layu menyerap semula air dengan ketara lebih cepat. Asid humik lignit bertindak seperti giberelin dan memanjangkan anak benih salad dan oat."},r:["L3"],e:"strong"},
- {v:"50",t:{zh:"黄腐酸让番茄呼吸增强。但超过这个浓度，轮藻的原生质流动开始变慢。",en:"Fulvic acid raised tomato respiration. Above this level, protoplasm streaming in stonewort began to slow.",bm:"Asid fulvik meningkatkan respirasi tomato. Melebihi tahap ini, aliran protoplasma stonewort mula perlahan."},r:["L3"],e:"mixed"},
- {v:"100",t:{zh:"小麦、玉米根系呼吸增强。黄瓜试验中，这个浓度的腐植酸提高了根的导水能力和地上部生长。",en:"Wheat and maize roots respired more. In a cucumber trial, humic acid at this level raised root water conductivity and shoot growth.",bm:"Akar gandum dan jagung lebih aktif bernafas. Dalam ujian timun, asid humik pada tahap ini meningkatkan kekonduksian air akar dan pertumbuhan pucuk."},r:["L3","OE"],e:"strong"},
- {v:"300",t:{zh:"叶面喷施：甜菜的 CO₂ 利用率提高 22%，秋海棠多放出 17% 到 30% 的 CO₂。",en:"As a leaf spray: sugar beet used 22% more CO₂, and begonia released 17% to 30% more CO₂.",bm:"Sebagai semburan daun: bit gula menggunakan 22% lebih CO₂, dan begonia membebaskan 17% hingga 30% lebih CO₂."},r:["L3"],e:"mixed"},
- {v:"1000",t:{zh:"玉米根细胞壁的孔被堵，根的导水能力最多下降 44%，地上部生长、蒸腾和抗旱力都下降。",en:"Pores in maize root cell walls clogged. Root water conductivity fell by up to 44%, and shoot growth, transpiration and drought resistance all dropped.",bm:"Liang dinding sel akar jagung tersumbat. Kekonduksian air akar jatuh sehingga 44%, dan pertumbuhan pucuk, transpirasi serta ketahanan kemarau semuanya menurun."},r:["AN"],e:"weak"},
- {v:"1500",t:{zh:"甜菜根组织的色素漏出来，说明细胞膜已经受损。",en:"Beetroot tissue leaked its pigment, a sign the cell membranes were damaged.",bm:"Tisu ubi bit membocorkan pigmennya, tanda membran sel telah rosak."},r:["L3"],e:"weak"}
-];
-let dose="100";
-const PG=[
- {w:100,n:{zh:"富含碳水化合物：马铃薯、甜菜、番茄、胡萝卜",en:"Carbohydrate-rich: potato, sugar beet, tomato, carrot",bm:"Kaya karbohidrat: kentang, bit gula, tomato, lobak merah"},d:{zh:"反应强烈，最佳条件下可增产五成",en:"React strongly, up to 50% more yield under the best conditions",bm:"Bertindak balas kuat, sehingga 50% lebih hasil dalam keadaan terbaik"}},
- {w:70,n:{zh:"谷类：大麦、玉米、燕麦、水稻、小麦",en:"Cereals: barley, maize, oats, rice, wheat",bm:"Bijirin: barli, jagung, oat, padi, gandum"},d:{zh:"反应良好",en:"React well",bm:"Bertindak balas baik"}},
- {w:30,n:{zh:"富含蛋白质：四季豆、扁豆、豌豆",en:"Protein-rich: green beans, lentils, peas",bm:"Kaya protein: kacang buncis, lentil, kacang pea"},d:{zh:"反应很小",en:"React little",bm:"Sedikit tindak balas"}},
- {w:8,n:{zh:"油料：蓖麻、棉花、亚麻、向日葵",en:"Oil crops: castor, cotton, linseed, sunflower",bm:"Tanaman minyak: jarak, kapas, biji rami, bunga matahari"},d:{zh:"几乎没有，甚至是负的",en:"Very slight, or even negative",bm:"Sangat sedikit, malah negatif"}}
-];
 let dq={om:store.get("dq.om")||"",cond:store.get("dq.cond")||"",soil:store.get("dq.soil")||""};
 function advice(){
  if(!dq.om||!dq.cond||!dq.soil)return '<div class="result"><p>'+T({zh:"选好上面三项，这里给出建议。",en:"Choose all three above to see the advice here.",bm:"Pilih ketiga-tiga di atas untuk melihat nasihat di sini."})+'</p></div>';
@@ -442,10 +401,6 @@ const CMP=[
  {k:{zh:"进细胞",en:"Enters cells",bm:"Masuk sel"},f:{zh:"较容易",en:"More easily",bm:"Lebih mudah"},h:{zh:"大分子常留在细胞外壁",en:"Large molecules often stay on the outer wall",bm:"Molekul besar sering kekal di dinding luar"}}
 ];
 const FAX=[
- {e:"strong",r:["RS"],t:{zh:"黄瓜（营养液）：100 到 300 ppm",en:"Cucumber in nutrient solution: 100 to 300 ppm",bm:"Timun dalam larutan nutrien: 100 hingga 300 ppm"},
-  b:{zh:"在营养液里加入 100 到 300 ppm 黄腐酸，黄瓜地上部和根的生长、花数，以及氮、磷、钾、钙、镁、铜、铁、锌的吸收都显著增加。这是黄腐酸研究里被引用最多的经典试验。",en:"Adding 100 to 300 ppm of fulvic acid to the nutrient solution gave highly significant increases in cucumber shoot and root growth, flower number, and uptake of nitrogen, phosphorus, potassium, calcium, magnesium, copper, iron and zinc. This is the most cited classic trial on fulvic acid.",bm:"Menambah 100 hingga 300 ppm asid fulvik ke dalam larutan nutrien memberi peningkatan yang sangat ketara pada pertumbuhan pucuk dan akar timun, bilangan bunga, serta pengambilan nitrogen, fosforus, kalium, kalsium, magnesium, kuprum, besi dan zink. Ini ujian klasik asid fulvik yang paling banyak dipetik."}},
- {e:"mixed",r:["AJ"],t:{zh:"玉米受旱：叶面喷施",en:"Maize under drought: leaf spray",bm:"Jagung dalam kemarau: semburan daun"},
-  b:{zh:"玉米抽雄期断水后叶面喷黄腐酸（1.5 毫克/升）。喷过的植株叶绿素和气体交换保持得更好，抗氧化酶活性和脯氨酸更高，生长和籽粒产量也更好；不缺水的植株同样有改善。这只是一项研究，结果还需要更多田间试验印证。",en:"Maize had water withheld at tasselling, then got a leaf spray of fulvic acid (1.5 mg per litre). Sprayed plants kept their chlorophyll and gas exchange better, had more antioxidant enzyme activity and proline, and grew and yielded better. Well-watered plants improved too. It is one study, and the result needs more field trials behind it.",bm:"Jagung dihentikan air pada peringkat berbunga jantan, kemudian disembur asid fulvik pada daun (1.5 mg seliter). Pokok yang disembur lebih mengekalkan klorofil dan pertukaran gas, mempunyai lebih aktiviti enzim antioksidan dan prolina, serta tumbuh dan berhasil lebih baik. Pokok yang cukup air juga bertambah baik. Ini satu kajian, dan keputusannya perlukan lebih banyak ujian ladang."}},
  {e:"mixed",r:["MO"],t:{zh:"番石榴：土施",en:"Guava: soil application",bm:"Jambu batu: tabur ke tanah"},
   b:{zh:"埃及在六年生番石榴上连续两季土施黄腐酸和海藻提取物（单用或合用）。与对照相比，新梢长度和粗度、叶绿素、坐果率、产量和果实外观品质都提高了。这是我找到的最接近榴莲的热带果树试验，但气候和土壤与马来西亚不同。",en:"In Egypt, six-year-old guava trees received fulvic acid and seaweed extract on the soil, alone or combined, over two seasons. Against untreated trees, shoot length and thickness, chlorophyll, fruit set, yield and fruit physical quality all rose. It is the closest tropical fruit-tree trial to durian I found, though the climate and soil differ from Malaysia.",bm:"Di Mesir, pokok jambu batu berumur enam tahun menerima asid fulvik dan ekstrak rumpai laut pada tanah, sendirian atau gabungan, selama dua musim. Berbanding pokok tanpa rawatan, panjang dan ketebalan pucuk, klorofil, pembentukan buah, hasil dan kualiti fizikal buah semuanya meningkat. Ini ujian pokok buah tropika paling hampir dengan durian yang saya temui, walaupun iklim dan tanahnya berbeza daripada Malaysia."}},
  {e:"mixed",r:["GF"],t:{zh:"葡萄：喷浓了反而没用",en:"Grape: a stronger spray did nothing",bm:"Anggur: semburan lebih pekat tidak berkesan"},
@@ -465,6 +420,7 @@ function hometests(){
  return '<div class="card"><h3>'+T({zh:"在家检验产品",en:"Testing a product at home",bm:"Menguji produk di rumah"})+'</h3>'
  +'<p>'+T({zh:"没有一种家里的办法能量出腐植酸含量。下面是三种常听到的办法，各能说明什么。",en:"No home method measures humic content. Here are three you often hear about and what each one can tell you.",bm:"Tiada kaedah rumah yang mengukur kandungan humik. Berikut tiga yang sering didengar dan apa yang setiap satu boleh beritahu."})+'</p>'
  +HTEST.map(x=>'<details class="stripe s-'+x.e+'"><summary><span class="row"><span>'+esc(T(x.t))+'</span></span>'+badge(x.e)+'</summary><div class="in"><p>'+esc(T(x.b))+'</p>'+src(x.r)+'</div></details>').join("")
+ +'<p>'+T({zh:"目前的商品腐植物质大多来自煤和泥炭（例如风化褐煤），属于不可再生资源；堆肥和蚯蚓粪是可再生的来源。",en:"Most commercial humic material today comes from coal and peat, such as leonardite, which are non-renewable. Compost and vermicompost are renewable sources.",bm:"Kebanyakan bahan humik komersial hari ini berasal daripada arang batu dan gambut, seperti leonardit, yang tidak boleh diperbaharui. Kompos dan vermikompos ialah sumber boleh diperbaharui."})+'</p>'+src(["C15"])
  +'<p class="lab">'+T({zh:"真正管用的",en:"What does work",bm:"Yang benar-benar berkesan"})+'</p><ul>'
  +'<li>'+T({zh:"看标签上的含量是用什么方法测的；方法不同，数字不能比。",en:"Check which test method is behind the percentage on the label. Different methods give numbers that cannot be compared.",bm:"Semak kaedah ujian di sebalik peratusan pada label. Kaedah berbeza memberi angka yang tidak boleh dibandingkan."})+'</li>'
  +'<li>'+T({zh:"留几棵树不施、绑上布条，下次抽梢时比一眼。只有这个能告诉你它在你的园里有没有用。",en:"Leave a few trees untreated with a ribbon and compare once at the next flush. Only this tells you whether it works in your orchard.",bm:"Biarkan beberapa pokok tanpa rawatan dengan reben dan bandingkan sekali pada pucuk baharu seterusnya. Hanya ini yang memberitahu sama ada ia berkesan di dusun anda."})+'</li></ul></div>';
@@ -483,7 +439,6 @@ function fulvic(){
  +'<p>'+T({zh:"一篇“从实验室到田间”的综述指出，效果取决于腐植物质的化学结构、施用方式、用量和田间条件。",en:"A review titled From lab to field points out that the result depends on the chemical structure of the humic material, how it is applied, the rate, and field conditions.",bm:"Satu ulasan bertajuk From lab to field menyatakan bahawa keputusan bergantung pada struktur kimia bahan humik, cara penggunaan, kadar dan keadaan ladang."})+'</p>'+src(["JI"])+'</div>';
 }
 function humic(){
- const d=DOSE.find(x=>x.v===dose);
  $("v-humic").innerHTML=
  '<h2>'+T({zh:"腐植酸、黄腐酸、胡敏素",en:"Humic acid, fulvic acid, humin",bm:"Asid humik, asid fulvik, humin"})+'</h2>'
  +'<p class="lead">'+T({zh:"这三个名字是按“溶不溶”来分的，不是三种固定的分子。用碱液泡土，再加酸，就分出三部分。",en:"These three names sort material by whether it dissolves. They are not three fixed molecules. Soak soil in alkali, then add acid, and you get three parts.",bm:"Tiga nama ini mengasingkan bahan mengikut keterlarutan. Ia bukan tiga molekul tetap. Rendam tanah dalam alkali, kemudian tambah asid, dan anda dapat tiga bahagian."})+'</p>'
@@ -502,20 +457,7 @@ function humic(){
  +'<div class="q"><span class="lab">'+T({zh:"土质",en:"Soil type",bm:"Jenis tanah"})+'</span><div class="chips">'
  +chip("dq.soil","sand",T({zh:"砂质",en:"Sandy",bm:"Berpasir"}),dq.soil==="sand")+chip("dq.soil","loam",T({zh:"壤土",en:"Loam",bm:"Lom"}),dq.soil==="loam")+chip("dq.soil","clay",T({zh:"粘质",en:"Clay",bm:"Liat"}),dq.soil==="clay")+'</div></div>'
  +advice()+'</div>'
- +hometests()
-
- +'<div class="card"><h3>'+T({zh:"浓度：不是越多越好",en:"Concentration: more is not better",bm:"Kepekatan: lebih banyak bukan lebih baik"})+'</h3>'
- +'<p>'+T({zh:"选一个浓度（毫克/升），看实验里发生了什么。这些是实验室溶液里的浓度，用来说明规律，不是田间用量。田间请按产品标签。",en:"Pick a concentration (mg per litre) to see what happened in experiments. These are concentrations in laboratory solutions, shown to explain the pattern. They are not field rates. In the field, follow the product label.",bm:"Pilih satu kepekatan (mg seliter) untuk melihat apa yang berlaku dalam eksperimen. Ini kepekatan dalam larutan makmal, ditunjukkan untuk menerangkan corak. Ia bukan kadar ladang. Di ladang, ikut label produk."})+'</p>'
- +'<div class="chips">'+DOSE.map(x=>chip("dose",x.v,x.v,dose===x.v)).join("")+'</div>'
- +'<div class="result r-'+d.e+'"><div class="big">'+d.v+' mg/L</div><p>'+esc(T(d.t))+'</p>'+src(d.r)+'</div></div>'
-
- +'<div class="card"><h3>'+T({zh:"不同作物反应不同",en:"Crops respond differently",bm:"Tanaman bertindak balas berbeza"})+'</h3>'
- +'<p>'+T({zh:"Khristeva 在 1950 年代把作物按对腐植酸的反应分成四组。条的长短只表示强弱顺序。榴莲等热带果树不在这个分类里。",en:"In the 1950s Khristeva sorted crops into four groups by their response to humic acids. Bar length shows the order of strength only. Durian and other tropical fruit trees are not in this classification.",bm:"Pada 1950-an Khristeva membahagi tanaman kepada empat kumpulan mengikut tindak balas terhadap asid humik. Panjang bar hanya menunjukkan susunan kekuatan. Durian dan pokok buah tropika lain tiada dalam pengelasan ini."})+'</p>'
- +'<div class="bars">'+PG.map(p=>'<div class="bar"><b>'+esc(T(p.n))+'</b><div class="t"><span style="width:'+p.w+'%"></span></div><span>'+esc(T(p.d))+'</span></div>').join("")+'</div>'+src(["L3"])+'</div>'
-
- +'<div class="card"><h3>'+T({zh:"商品腐植酸从哪里来",en:"Where commercial humic products come from",bm:"Dari mana datangnya produk humik komersial"})+'</h3>'
- +'<p>'+T({zh:"目前农业上用的腐植物质大多来自煤和泥炭，例如风化褐煤（leonardite），属于不可再生资源。研究者主张开发可再生的来源，比如有机废弃物、堆肥和蚯蚓粪；最早证明腐植酸促进侧根的试验，用的正是牛粪蚯蚓堆肥里提取的腐植酸。",en:"Most humic substances used in farming today come from coal and peat, such as leonardite, which are non-renewable. Researchers call for renewable sources such as organic wastes, compost and vermicompost. The experiment that first showed humic acids trigger lateral roots used humic acid extracted from cattle-manure vermicompost.",bm:"Kebanyakan bahan humik yang digunakan dalam pertanian hari ini berasal daripada arang batu dan gambut, seperti leonardit, yang tidak boleh diperbaharui. Penyelidik menyeru sumber boleh diperbaharui seperti sisa organik, kompos dan vermikompos. Eksperimen yang mula-mula menunjukkan asid humik mencetuskan akar sisi menggunakan asid humik yang diekstrak daripada vermikompos najis lembu."})+'</p>'
- +src(["C15","C02","HB"])+'</div>';
+ +hometests();
 }
 
 /* ================= BUILD ================= */
@@ -552,6 +494,25 @@ function compostResult(){
  return ok?'<div class="result r-strong"><h3>'+T({zh:"可以用了",en:"Ready to use",bm:"Sedia digunakan"})+'</h3><p>'+T({zh:"铺在树冠下，离开树干。",en:"Spread it under the canopy, clear of the trunk.",bm:"Ratakan di bawah kanopi, jauh daripada batang."})+'</p>'+src(["BC","UF"])+'</div>'
  :'<div class="result r-weak"><h3>'+T({zh:"还没熟，先别用",en:"Not ready, do not use it yet",bm:"Belum sedia, jangan guna lagi"})+'</h3><p>'+T({zh:"翻一翻堆，让空气进去，太湿就掺些干料，再放几个星期后重新检查。没熟的堆肥可能让植株生长受阻甚至死亡。",en:"Turn the heap to let air in, mix in dry material if it is too wet, and check again in a few weeks. Immature compost can stunt or kill plants.",bm:"Balikkan timbunan supaya udara masuk, campur bahan kering jika terlalu basah, dan semak semula dalam beberapa minggu. Kompos belum matang boleh membantutkan atau membunuh tumbuhan."})+'</p>'+src(["BC","UF"])+'</div>';
 }
+let yrs=store.get("yrs")==="10"?"10":"5";
+function calcResult(){
+ const a=parseFloat(String(area).replace(",","."));
+ if(!(a>0))return '<div class="result"><p>'+T({zh:"填入面积，这里显示结果。",en:"Enter the area to see the result here.",bm:"Masukkan keluasan untuk melihat keputusan di sini."})+'</p></div>';
+ const dm=Number(depth)/100, m2=a*4046.86, soil=m2*dm*1.3, om=soil*0.01, need=om*5, py=need/Number(yrs)/a;
+ return '<div class="result"><div class="kv">'
+  +'<span>'+T({zh:"要留在土里的有机质",en:"Organic matter that must stay in the soil",bm:"Bahan organik yang mesti kekal dalam tanah"})+'</span><b>'+fmt(om,1)+' t</b>'
+  +'<span>'+T({zh:"大约要施下的干有机物",en:"Dry organic material to apply, roughly",bm:"Bahan organik kering untuk ditabur, kira-kira"})+'</span><b>'+fmt(need,0)+' t</b>'
+  +'<span>'+T({zh:"分 "+yrs+" 年，每英亩每年",en:"Over "+yrs+" years, per acre per year",bm:"Dalam "+yrs+" tahun, seekar setahun"})+'</span><b>'+fmt(py,1)+' t</b>'
+  +'</div><p>'+T({zh:"这是干重。新鲜的草屑、落叶和堆肥含水很多，实际要搬的重量更大。园里自己长出来的落叶、草和修剪枝都算在内，所以第一步是别把它们清走或烧掉。",en:"These are dry weights. Fresh grass, leaves and compost hold a lot of water, so the weight you actually move is larger. The leaves, grass and prunings the orchard grows itself all count, so the first step is to stop removing or burning them.",bm:"Ini berat kering. Rumput segar, daun dan kompos mengandungi banyak air, jadi berat sebenar yang dipindahkan lebih besar. Daun, rumput dan ranting yang dihasilkan dusun sendiri semuanya dikira, jadi langkah pertama ialah berhenti membuang atau membakarnya."})+'</p>'
+  +'<p>'+T({zh:"计算假设：土壤容重 1.3 吨/立方米；施下的有机物约有 20% 变成较稳定的土壤有机质，其余被土壤生物分解掉。这个比例来自美国的土壤手册，热带分解更快，留下的可能更少，所以把结果当作下限。",en:"Assumptions: soil bulk density 1.3 t per cubic metre; about 20% of what is applied becomes fairly stable soil organic matter and the rest is decomposed by soil organisms. That share comes from a United States soil handbook. Decomposition is faster in the tropics and less may remain, so treat the result as a minimum.",bm:"Andaian: ketumpatan pukal tanah 1.3 t setiap meter padu; kira-kira 20% daripada yang ditabur menjadi bahan organik tanah yang agak stabil dan selebihnya diuraikan oleh organisma tanah. Bahagian itu daripada buku panduan tanah Amerika Syarikat. Pereputan lebih cepat di kawasan tropika dan mungkin kurang yang tinggal, jadi anggap keputusan ini sebagai minimum."})+'</p>'+src(["SA","FB"])+'</div>';
+}
+function calcCard(){
+ return '<div class="card"><h3>'+T({zh:"把有机质提高 1%，要多少料",en:"How much material to raise organic matter by 1%",bm:"Berapa banyak bahan untuk menaikkan bahan organik 1%"})+'</h3>'
+ +'<div class="q"><label class="lab" for="area">'+T({zh:"面积（英亩）",en:"Area (acres)",bm:"Keluasan (ekar)"})+'</label><input id="area" type="text" inputmode="decimal" autocomplete="off" value="'+esc(area)+'"></div>'
+ +'<div class="q"><span class="lab">'+T({zh:"土层深度",en:"Soil depth",bm:"Kedalaman tanah"})+'</span><div class="chips">'+chip("depth","15","15 cm",depth==="15")+chip("depth","30","30 cm",depth==="30")+'</div></div>'
+ +'<div class="q"><span class="lab">'+T({zh:"打算用几年做到",en:"Years to get there",bm:"Tahun untuk mencapainya"})+'</span><div class="chips">'+chip("yrs","5",T({zh:"5 年",en:"5 years",bm:"5 tahun"}),yrs==="5")+chip("yrs","10",T({zh:"10 年",en:"10 years",bm:"10 tahun"}),yrs==="10")+'</div></div>'
+ +'<div id="calc-out">'+calcResult()+'</div></div>';
+}
 function build(){
  $("v-build").innerHTML=
  '<h2>'+T({zh:"怎样把有机质养起来",en:"How to build organic matter",bm:"Cara membina bahan organik"})+'</h2>'
@@ -565,6 +526,7 @@ function build(){
  +'<p>'+T({zh:"昆士兰州政府把“用地被和覆盖物提高土壤有机质”列为防治疫霉根腐的措施之一，同时提醒覆盖物要离开树干。",en:"The Queensland Government lists raising soil organic matter with ground covers and mulch among its measures against Phytophthora root rot, with the reminder to keep mulch away from trunks.",bm:"Kerajaan Queensland menyenaraikan peningkatan bahan organik tanah dengan penutup bumi dan sungkupan antara langkah melawan reput akar Phytophthora, dengan peringatan supaya sungkupan dijauhkan daripada batang."})+'</p>'+src(["QG","NT"])
  +'<p class="lab">'+T({zh:"用什么料",en:"Which material",bm:"Bahan yang mana"})+'</p><div class="chips">'+Object.keys(MAT).map(k=>chip("mat",k,T(MAT[k].n),mat===k)).join("")+'</div>'
  +'<p>'+esc(T(MAT[mat].b))+'</p>'+src(MAT[mat].r)+'</div>'
+ +calcCard()
 
  +'<div class="card"><h3>'+T({zh:"什么在消耗有机质",en:"What uses up organic matter",bm:"Apa yang menghabiskan bahan organik"})+'</h3>'
  +LOSS.map(l=>'<div class="loss">'+l.i+'<div><b>'+esc(T(l.t))+'</b><p>'+esc(T(l.b))+'</p></div></div>').join("")+src(["FB"])+'</div>'
@@ -638,19 +600,6 @@ function checkResult(){
   +(weakest.length?'<ul>'+weakest.map(q=>'<li>'+esc(T(q.tip))+'</li>').join("")+'</ul>':'')
   +'<p>'+T({zh:"这是按看得见的迹象做的简易判断，不是化验值。",en:"This is a simple judgement from visible signs. It is not a laboratory value.",bm:"Ini penilaian ringkas daripada tanda yang nampak. Ia bukan nilai makmal."})+'</p>'+src(["VS","US"])+'</div>';
 }
-function calcResult(){
- const a=parseFloat(String(area).replace(",","."));
- if(!(a>0))return '<div class="result"><p>'+T({zh:"填入面积，这里显示结果。",en:"Enter the area to see the result here.",bm:"Masukkan keluasan untuk melihat keputusan di sini."})+'</p></div>';
- const dm=Number(depth)/100, m2=a*4046.86, soil=m2*dm*1.3, om=soil*0.01;
- const mm=1.16*(1/1.724)*(Number(depth)/10), litres=mm*m2;
- return '<div class="result"><div class="kv">'
-  +'<span>'+T({zh:"这层土的重量",en:"Weight of this soil layer",bm:"Berat lapisan tanah ini"})+'</span><b>'+fmt(soil,0)+' t</b>'
-  +'<span>'+T({zh:"其中 1% 有机质",en:"1% of it as organic matter",bm:"1% daripadanya sebagai bahan organik"})+'</span><b>'+fmt(om,1)+' t</b>'
-  +'<span>'+T({zh:"多存的有效水",en:"Extra plant-available water",bm:"Air tersedia tambahan"})+'</span><b>'+fmt(mm,1)+' mm</b>'
-  +'<span>'+T({zh:"折合水量",en:"As a volume of water",bm:"Sebagai isi padu air"})+'</span><b>'+fmt(litres,0)+' L</b>'
-  +'</div><p>'+T({zh:"要把有机质提高 1 个百分点，留在土里的有机质就要有这么多吨，而施下去的有机物大部分会被微生物呼吸掉。所以要年年补、不间断：管的是流量，不是一次存够。多存的水只有一毫米上下；覆盖物减少蒸发、帮助雨水下渗，才是抗旱的主力。",en:"Raising organic matter by one percentage point means this many tonnes must stay in the soil, and microbes respire away most of what you apply. So add it every year without a break: you are managing a flow, not filling a tank once. The extra stored water is only about a millimetre. Mulch that cuts evaporation and lets rain soak in does most of the work against drought.",bm:"Menaikkan bahan organik sebanyak satu mata peratus bermakna sebanyak ini tan mesti kekal dalam tanah, dan mikrob menghembus keluar sebahagian besar yang anda tabur. Jadi tambah setiap tahun tanpa henti: anda mengurus aliran, bukan mengisi tangki sekali. Air tambahan yang disimpan hanya kira-kira satu milimeter. Sungkupan yang mengurangkan sejatan dan membolehkan hujan meresap itulah yang paling banyak membantu melawan kemarau."})+'</p>'
-  +'<p>'+T({zh:"计算假设：土壤容重 1.3 吨/立方米；有机质 = 有机碳 × 1.724；有机碳每增 1%，每 100 毫米土层有效水增 1.16 毫米。",en:"Assumptions: soil bulk density 1.3 t per cubic metre; organic matter = organic carbon × 1.724; each 1% of organic carbon adds 1.16 mm of available water per 100 mm of soil.",bm:"Andaian: ketumpatan pukal tanah 1.3 t setiap meter padu; bahan organik = karbon organik × 1.724; setiap 1% karbon organik menambah 1.16 mm air tersedia bagi setiap 100 mm tanah."})+'</p>'+src(["MM","LK"])+'</div>';
-}
 const qrow=q=>'<div class="q"><div class="hd">'+QI[q.id]+'<span class="lab">'+esc(T(q.q))+'</span></div>'+(T(q.h)?'<p>'+esc(T(q.h))+'</p>':'')+'<div class="chips">'+q.o.map((o,i)=>chip("ans."+q.id,i,T(o),String(ans[q.id])===String(i))).join("")+'</div></div>';
 function check(){
  $("v-check").innerHTML=
@@ -658,19 +607,13 @@ function check(){
  +'<p class="lead">'+T({zh:"走到树冠下看三样东西，两分钟，不用工具。",en:"Walk under the canopy and look at three things. Two minutes, no tools.",bm:"Berjalan di bawah kanopi dan lihat tiga perkara. Dua minit, tanpa alat."})+'</p>'
  +'<div class="card">'+CORE.map(k=>qrow(QS.find(q=>q.id===k))).join("")+'</div>'
  +'<details'+(QS.some(q=>!CORE.includes(q.id)&&ans[q.id]!==undefined)?' open':'')+'><summary><span class="row"><span>'+T({zh:"有空再多看三项（要挖土）",en:"Three more if you have time (needs digging)",bm:"Tiga lagi jika ada masa (perlu menggali)"})+'</span></span></summary><div class="in">'+QS.filter(q=>!CORE.includes(q.id)).map(qrow).join("")+'</div></details>'
- +'<div id="chk-out">'+checkResult()+'</div>'
- +'<h2>'+T({zh:"1% 有机质有多重",en:"What 1% organic matter weighs",bm:"Berapa berat 1% bahan organik"})+'</h2>'
- +'<div class="card"><div class="q"><label class="lab" for="area">'+T({zh:"面积（英亩）",en:"Area (acres)",bm:"Keluasan (ekar)"})+'</label><input id="area" type="text" inputmode="decimal" autocomplete="off" value="'+esc(area)+'"></div>'
- +'<div class="q"><span class="lab">'+T({zh:"土层深度",en:"Soil depth",bm:"Kedalaman tanah"})+'</span><div class="chips">'+chip("depth","15","15 cm",depth==="15")+chip("depth","30","30 cm",depth==="30")+'</div></div></div>'
- +'<div id="calc-out">'+calcResult()+'</div>';
+ +'<div id="chk-out">'+checkResult()+'</div>';
 }
 
 /* ================= SOURCES ================= */
 function sources(){
- $("v-sources").innerHTML=
- '<h2>'+T({zh:"资料来源",en:"Sources",bm:"Rujukan"})+'</h2>'
- +'<p class="lead">'+T({zh:"前三项是借来的课堂笔记，其余是用来核对和补充的研究与机构指南。",en:"The first three are the borrowed lecture notes. The rest are the studies and institutional guides used to check and extend them.",bm:"Tiga yang pertama ialah nota kuliah yang dipinjam. Selebihnya ialah kajian dan panduan institusi yang digunakan untuk menyemak dan melanjutkannya."})+'</p>'
- +'<div class="card"><ol class="refs">'+REFORDER.map(k=>{const r=REF[k];return '<li>'+(r.s?esc(T(r.s)):esc(r.c)+' <a href="'+r.u+'" target="_blank" rel="noopener">'+T({zh:"打开",en:"Open",bm:"Buka"})+'</a>')+'</li>'}).join("")+'</ol></div>'
+ return '<details><summary><span class="row"><span>'+T({zh:"资料来源",en:"Sources",bm:"Rujukan"})+'</span></span></summary><div class="in"><p>'+T({zh:"前三项是借来的课堂笔记，其余是用来核对和补充的研究与机构指南。",en:"The first three are the borrowed lecture notes. The rest are the studies and institutional guides used to check and extend them.",bm:"Tiga yang pertama ialah nota kuliah yang dipinjam. Selebihnya ialah kajian dan panduan institusi yang digunakan untuk menyemak dan melanjutkannya."})+'</p>'
+ +'<ol class="refs">'+REFORDER.map(k=>{const r=REF[k];return '<li>'+(r.s?esc(T(r.s)):esc(r.c)+' <a href="'+r.u+'" target="_blank" rel="noopener">'+T({zh:"打开",en:"Open",bm:"Buka"})+'</a>')+'</li>'}).join("")+'</ol></div></details>'
  +'<div class="card qr"><h3>'+T({zh:"分享这个软件",en:"Share this app",bm:"Kongsi aplikasi ini"})+'</h3>'+QR+'<span class="url">'+URL_APP+'</span><a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(T({zh:"沃土有机质 HumusLab：土壤有机质与腐植酸 ",en:"HumusLab: soil organic matter and humic substances ",bm:"HumusLab: bahan organik tanah dan asid humik "})+URL_APP)+'">WhatsApp</a></div>'
  +'<details><summary><span class="row"><span>'+T({zh:"三档证据是怎么分的",en:"How the three evidence grades were set",bm:"Bagaimana tiga gred bukti ditetapkan"})+'</span></span></summary><div class="in"><p>'
  +T({zh:"证据充分：有荟萃分析、机构指南或多项独立研究支持，或机理已在实验中直接观察到。视情况而定：实验室里成立，但田间结果不一致，或作用大小因土质、作物、用量而变。证据有限：只见于课堂笔记或产品资料，或只有个别试验。榴莲上的直接研究很少，凡是从其他作物推过来的地方都已注明。",
@@ -680,7 +623,7 @@ function sources(){
 }
 
 /* ================= shell ================= */
-const VIEWS={basics,effects,humic,build,check,sources};
+const VIEWS={basics,humic,build,check};
 let tab="basics";
 function route(){const h=location.hash.replace("#","");tab=VIEWS[h]?h:"basics";paint()}
 function paint(){
@@ -706,6 +649,7 @@ document.addEventListener("click",ev=>{
  else if(g==="dose"){dose=v}
  else if(g==="mat"){mat=v}
  else if(g.startsWith("cq.")){cq[g.slice(3)]=Number(v)}
+ else if(g==="yrs"){yrs=v;store.set("yrs",v)}
  else if(g==="depth"){depth=v;store.set("depth",v)}
  else if(g.startsWith("dq.")){const k=g.slice(3);dq[k]=v;store.set(g,v)}
  else if(g.startsWith("ans.")){ans[g.slice(4)]=Number(v);store.set("ans",JSON.stringify(ans))}
